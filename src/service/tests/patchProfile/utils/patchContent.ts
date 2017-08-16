@@ -1,0 +1,17 @@
+import * as stringToStream from 'string-to-stream';
+import service from '../../../../utils/testService';
+import {
+  TEST_CLIENT,
+  TEST_MBOX_AGENT,
+  TEST_PROFILE_ID,
+} from '../../../../utils/testValues';
+
+export default async (content: string, contentType: string) => {
+  await service.patchProfile({
+    agent: TEST_MBOX_AGENT,
+    client: TEST_CLIENT,
+    content: stringToStream(content),
+    contentType,
+    profileId: TEST_PROFILE_ID,
+  });
+};
