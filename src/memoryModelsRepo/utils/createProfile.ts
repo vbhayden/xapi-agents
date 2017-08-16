@@ -25,8 +25,8 @@ export default (config: Config, opts: Options): Profile => {
     profileId: opts.profileId,
     updatedAt: new Date(),
   };
-  config.state.activityProfiles = [
-    ...config.state.activityProfiles,
+  config.state.agentProfiles = [
+    ...config.state.agentProfiles,
     profile,
   ];
   return profile;

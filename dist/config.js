@@ -6,7 +6,7 @@ var getBooleanOption_1 = require("jscommons/dist/config/getBooleanOption");
 var getNumberOption_1 = require("jscommons/dist/config/getNumberOption");
 var getStringOption_1 = require("jscommons/dist/config/getStringOption");
 var os = require("os");
-var DEFAULT_EXPRESS_PORT = 80;
+var DEFAULT_EXPRESS_PORT = 8080;
 var DEFAULT_TIMEOUT_MS = 300000; // 5 minutes.
 var storageDir = process.cwd() + "/storage";
 var expressPort = getNumberOption_1.default(process.env.EXPRESS_PORT, DEFAULT_EXPRESS_PORT);
@@ -32,7 +32,7 @@ exports.default = {
         url: getStringOption_1.default(process.env.MONGO_URL, 'mongodb://localhost:27017/xapistate'),
     },
     repoFactory: {
-        authRepoName: getStringOption_1.default(process.env.AUTH_REPO, 'fetch'),
+        authRepoName: getStringOption_1.default(process.env.AUTH_REPO, 'mongo'),
         modelsRepoName: getStringOption_1.default(process.env.MODELS_REPO, 'memory'),
         storageRepoName: getStringOption_1.default(process.env.STORAGE_REPO, 'local'),
     },

@@ -1,6 +1,7 @@
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
 import Profile from '../../models/Profile';
+import isMatchingAgent from './isMatchingAgent';
 
 export interface Options {
   readonly agent: Agent;
@@ -12,6 +13,6 @@ export default ({ client, agent, profile }: Options) => {
   return (
     profile.organisation === client.organisation &&
     profile.lrs === client.lrs_id &&
-    profile.agent === agent
+    isMatchingAgent(profile.agent, agent)
   );
 };

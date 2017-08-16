@@ -43,7 +43,7 @@ exports.default = function (_config) {
         return __generator(this, function (_a) {
             checkProfileReadScopes_1.default(opts.client.scopes);
             validateAgent_1.default(opts.agent);
-            return [2 /*return*/, { id: opts.agent }];
+            return [2 /*return*/, { id: 'hello' }];
         });
     }); };
 };

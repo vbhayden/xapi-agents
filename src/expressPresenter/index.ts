@@ -9,10 +9,10 @@ import putProfile from './putProfile';
 
 export default (config: Config): Router => {
   const router = commonExpressPresenter(config);
-  router.delete('/xAPI/activities/profile', deleteProfile(config));
-  router.get('/xAPI/activities/profile', getProfiles(config));
-  router.put('/xAPI/activities/profile', putProfile(config));
-  router.post('/xAPI/activities/profile', postProfile(config));
-  router.get('/xAPI/activities', getFullAgent(config));
+  router.delete('/xAPI/agents/profile', deleteProfile(config));
+  router.get('/xAPI/agents/profile', getProfiles(config));
+  router.put('/xAPI/agents/profile', putProfile(config));
+  router.post('/xAPI/agents/profile', postProfile(config));
+  router.get('/xAPI/agents', getFullAgent(config));
   return router;
 };

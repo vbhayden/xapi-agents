@@ -14,14 +14,14 @@ describe('expressPresenter.putProfile using the alternate request syntax', () =>
 
   it('should create when using valid activity id', async () => {
     await supertest
-      .post('/xAPI/activities/profile')
+      .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
       .query({
         method: 'PUT',
       })
       .send({
         'Content-Type': TEXT_CONTENT_TYPE,
-        agent: TEST_MBOX_AGENT,
+        agent: JSON.stringify(TEST_MBOX_AGENT),
         content: TEST_CONTENT,
         profileId: TEST_PROFILE_ID,
       })

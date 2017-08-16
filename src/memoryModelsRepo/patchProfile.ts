@@ -14,7 +14,7 @@ export default (config: Config) => {
     let isExistingProfile = false;
     const { agent, profileId, client, ifMatch, ifNoneMatch } = opts;
     checkMaxEtags(ifMatch, ifNoneMatch);
-    config.state.activityProfiles = config.state.activityProfiles.map((profile) => {
+    config.state.agentProfiles = config.state.agentProfiles.map((profile) => {
       const isMatch = matchUniqueProfile({ client, agent, profile, profileId });
       const isJson = (
         isMatch &&

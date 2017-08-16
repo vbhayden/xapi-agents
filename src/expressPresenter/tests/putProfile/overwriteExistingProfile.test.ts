@@ -1,46 +1,54 @@
+import assertImmutableProfile from '../../../utils/assertImmutableProfile';
 import assertProfile from '../../../utils/assertProfile';
+import createImmutableProfile from '../../../utils/createImmutableProfile';
+import createTextProfile from '../../../utils/createTextProfile';
 import {
-  TEST_CLIENT,
-  TEST_CONTENT,
+  TEST_ACCOUNT_AGENT,
+  TEST_IMMUTABLE_CONTENT,
   TEST_MBOX_AGENT,
-  TEST_PROFILE_ID,
-  TEXT_CONTENT_TYPE,
-} from '../../../utils/testValues';
-import { NO_CONTENT_204_HTTP_CODE } from '../../utils/httpCodes';
-import createImmutableProfile from '../utils/createImmutableProfile';
+  TEST_MBOXSHA1_AGENT,
+  TEST_OPENID_AGENT,
+ } from '../../../utils/testValues';
 import setup from '../utils/setup';
-import overwriteProfile from './utils/overwriteProfile';
+import overwriteExistingProfile from './utils/overwriteExistingProfile';
 
 describe('expressPresenter.putProfile with existing model', () => {
-  const { service, supertest } = setup();
+  setup();
 
   it('should overwrite model when overwriting an existing model', async () => {
-    // Creates model with initial content.
-    const initialContent = 'initial_dummy_content';
-    await overwriteProfile(TEST_MBOX_AGENT, initialContent);
-
-    // Overwrites model with expected content.
-    const getProfileResult = await service.getProfile({
-      agent: TEST_MBOX_AGENT,
-      client: TEST_CLIENT,
-      profileId: TEST_PROFILE_ID,
-    });
-    await supertest
-      .put('/xAPI/activities/profile')
-      .set('If-Match', `"${getProfileResult.etag}"`)
-      .set('Content-Type', TEXT_CONTENT_TYPE)
-      .query({
-        agent: TEST_MBOX_AGENT,
-        profileId: TEST_PROFILE_ID,
-      })
-      .send(TEST_CONTENT)
-      .expect(NO_CONTENT_204_HTTP_CODE);
-    await assertProfile(TEST_CONTENT);
+    await createTextProfile();
+    await overwriteExistingProfile(TEST_MBOX_AGENT, TEST_IMMUTABLE_CONTENT);
+    await assertProfile(TEST_IMMUTABLE_CONTENT);
   });
 
-  it('should not overwrite existing models when using a non-existing model', async () => {
+  it('should not overwrite non-matched models', async () => {
+    await createTextProfile();
     await createImmutableProfile();
-    await overwriteProfile(TEST_MBOX_AGENT, TEST_CONTENT).expect(NO_CONTENT_204_HTTP_CODE);
-    await assertProfile(TEST_CONTENT);
+    await overwriteExistingProfile(TEST_MBOX_AGENT);
+    await assertImmutableProfile();
+  });
+
+  it('should overwrite model when overwriting with mbox', async () => {
+    await createTextProfile({ agent: TEST_MBOX_AGENT });
+    await overwriteExistingProfile(TEST_MBOX_AGENT, TEST_IMMUTABLE_CONTENT);
+    await assertProfile(TEST_IMMUTABLE_CONTENT, { agent: TEST_MBOX_AGENT });
+  });
+
+  it('should overwrite model when overwriting with mbox_sha1sum', async () => {
+    await createTextProfile({ agent: TEST_MBOXSHA1_AGENT });
+    await overwriteExistingProfile(TEST_MBOXSHA1_AGENT, TEST_IMMUTABLE_CONTENT);
+    await assertProfile(TEST_IMMUTABLE_CONTENT, { agent: TEST_MBOXSHA1_AGENT });
+  });
+
+  it('should overwrite model when overwriting with openid', async () => {
+    await createTextProfile({ agent: TEST_OPENID_AGENT });
+    await overwriteExistingProfile(TEST_OPENID_AGENT, TEST_IMMUTABLE_CONTENT);
+    await assertProfile(TEST_IMMUTABLE_CONTENT, { agent: TEST_OPENID_AGENT });
+  });
+
+  it('should overwrite model when overwriting with account', async () => {
+    await createTextProfile({ agent: TEST_ACCOUNT_AGENT });
+    await overwriteExistingProfile(TEST_ACCOUNT_AGENT, TEST_IMMUTABLE_CONTENT);
+    await assertProfile(TEST_IMMUTABLE_CONTENT, { agent: TEST_ACCOUNT_AGENT });
   });
 });

@@ -58,7 +58,7 @@ exports.default = function (config) {
                     document = _a.sent();
                     if (document === null || document === undefined) {
                         /* istanbul ignore next */
-                        throw new NoModel_1.default('Activity Profile');
+                        throw new NoModel_1.default('Agent Profile');
                     }
                     return [2 /*return*/, {
                             content: lodash_1.defaultTo(document.content, undefined),

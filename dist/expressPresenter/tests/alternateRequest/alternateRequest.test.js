@@ -45,7 +45,7 @@ describe('expressPresenter using the alternate request syntax', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, supertest
-                        .post('/xAPI/activities/profile')
+                        .post('/xAPI/agents/profile')
                         .set('Content-Type', testValues_1.ALTERNATE_CONTENT_TYPE)
                         .query({ method: 'invalid_method' })
                         .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
@@ -59,7 +59,7 @@ describe('expressPresenter using the alternate request syntax', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, supertest
-                        .post('/xAPI/activities/profile')
+                        .post('/xAPI/agents/profile')
                         .set('Content-Type', 'invalid_content_type')
                         .query({ method: 'GET' })
                         .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];

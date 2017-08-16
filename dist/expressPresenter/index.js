@@ -8,11 +8,11 @@ var postProfile_1 = require("./postProfile");
 var putProfile_1 = require("./putProfile");
 exports.default = function (config) {
     var router = expressPresenter_1.default(config);
-    router.delete('/xAPI/activities/profile', deleteProfile_1.default(config));
-    router.get('/xAPI/activities/profile', getProfiles_1.default(config));
-    router.put('/xAPI/activities/profile', putProfile_1.default(config));
-    router.post('/xAPI/activities/profile', postProfile_1.default(config));
-    router.get('/xAPI/activities', getFullAgent_1.default(config));
+    router.delete('/xAPI/agents/profile', deleteProfile_1.default(config));
+    router.get('/xAPI/agents/profile', getProfiles_1.default(config));
+    router.put('/xAPI/agents/profile', putProfile_1.default(config));
+    router.post('/xAPI/agents/profile', postProfile_1.default(config));
+    router.get('/xAPI/agents', getFullAgent_1.default(config));
     return router;
 };
 //# sourceMappingURL=index.js.map

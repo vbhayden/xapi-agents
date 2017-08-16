@@ -1,7 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import service from '../../../../utils/testService';
-import { TEST_CLIENT, TEST_MBOX_AGENT, TEST_PROFILE_ID } from '../../../../utils/testValues';
 import deleteProfile from './deleteProfile';
 
 export default async () => {

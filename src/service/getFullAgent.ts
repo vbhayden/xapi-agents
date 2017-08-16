@@ -8,6 +8,6 @@ export default (_config: Config) => {
   return async (opts: GetFullAgentOptions): Promise<GetFullAgentResult> => {
     checkProfileReadScopes(opts.client.scopes);
     validateAgent(opts.agent);
-    return { id: opts.agent };
+    return { id: 'hello' };
   };
 };

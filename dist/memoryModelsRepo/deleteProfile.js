@@ -44,7 +44,7 @@ exports.default = function (config) {
     return function (opts) { return __awaiter(_this, void 0, void 0, function () {
         var storedProfiles, client, agent, existingId, existingContentType, remainingProfiles;
         return __generator(this, function (_a) {
-            storedProfiles = config.state.activityProfiles;
+            storedProfiles = config.state.agentProfiles;
             client = opts.client;
             agent = opts.agent;
             remainingProfiles = storedProfiles.filter(function (profile) {
@@ -60,11 +60,11 @@ exports.default = function (config) {
                 return !isMatch;
             });
             if (existingId !== undefined && existingContentType !== undefined) {
-                config.state.activityProfiles = remainingProfiles;
+                config.state.agentProfiles = remainingProfiles;
                 return [2 /*return*/, { id: existingId, contentType: existingContentType }];
             }
             /* istanbul ignore next */
-            throw new NoModel_1.default('Activity Profile');
+            throw new NoModel_1.default('Agent Profile');
         });
     }); };
 };

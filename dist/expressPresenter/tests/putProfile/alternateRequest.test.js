@@ -46,14 +46,14 @@ describe('expressPresenter.putProfile using the alternate request syntax', funct
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, supertest
-                        .post('/xAPI/activities/profile')
+                        .post('/xAPI/agents/profile')
                         .set('Content-Type', testValues_1.ALTERNATE_CONTENT_TYPE)
                         .query({
                         method: 'PUT',
                     })
                         .send({
                         'Content-Type': testValues_1.TEXT_CONTENT_TYPE,
-                        agent: testValues_1.TEST_MBOX_AGENT,
+                        agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT),
                         content: testValues_1.TEST_CONTENT,
                         profileId: testValues_1.TEST_PROFILE_ID,
                     })

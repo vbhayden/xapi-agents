@@ -39,10 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var assertDeleted_1 = require("../../../utils/assertDeleted");
 var createJsonProfile_1 = require("../../../utils/createJsonProfile");
 var createTextProfile_1 = require("../../../utils/createTextProfile");
+var testValues_1 = require("../../../utils/testValues");
 var setup_1 = require("../utils/setup");
 var deleteProfile_1 = require("./utils/deleteProfile");
-describe('deleteProfile with existing profile', function () {
-    var service = setup_1.default();
+describe('deleteProfile with existing state', function () {
+    setup_1.default();
     it('should delete when deleting text', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -69,6 +70,70 @@ describe('deleteProfile with existing profile', function () {
                 case 2:
                     _a.sent();
                     return [4 /*yield*/, assertDeleted_1.default()];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should delete when deleting with an mbox', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_MBOX_AGENT })];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, deleteProfile_1.default({ agent: testValues_1.TEST_MBOX_AGENT })];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, assertDeleted_1.default({ agent: testValues_1.TEST_MBOX_AGENT })];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should delete when deleting with an mbox_sha1sum', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_MBOXSHA1_AGENT })];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, deleteProfile_1.default({ agent: testValues_1.TEST_MBOXSHA1_AGENT })];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, assertDeleted_1.default({ agent: testValues_1.TEST_MBOXSHA1_AGENT })];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should delete when deleting with an openid', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_OPENID_AGENT })];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, deleteProfile_1.default({ agent: testValues_1.TEST_OPENID_AGENT })];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, assertDeleted_1.default({ agent: testValues_1.TEST_OPENID_AGENT })];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should delete when deleting with an account', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_ACCOUNT_AGENT })];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, deleteProfile_1.default({ agent: testValues_1.TEST_ACCOUNT_AGENT })];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, assertDeleted_1.default({ agent: testValues_1.TEST_ACCOUNT_AGENT })];
                 case 3:
                     _a.sent();
                     return [2 /*return*/];

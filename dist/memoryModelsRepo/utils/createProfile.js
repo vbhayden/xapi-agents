@@ -13,7 +13,7 @@ exports.default = function (config, opts) {
         profileId: opts.profileId,
         updatedAt: new Date(),
     };
-    config.state.activityProfiles = config.state.activityProfiles.concat([
+    config.state.agentProfiles = config.state.agentProfiles.concat([
         profile,
     ]);
     return profile;

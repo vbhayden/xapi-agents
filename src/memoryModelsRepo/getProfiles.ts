@@ -12,7 +12,7 @@ export default (config: Config) => {
   return async (opts: GetProfilesOptions): Promise<GetProfilesResult> => {
     const client = opts.client;
     const agent = opts.agent;
-    const matchingProfiles = config.state.activityProfiles.filter((profile) => {
+    const matchingProfiles = config.state.agentProfiles.filter((profile) => {
       return (
         matchProfileIdentifier({ client, agent, profile }) &&
         matchProfileSince(profile, opts.since)

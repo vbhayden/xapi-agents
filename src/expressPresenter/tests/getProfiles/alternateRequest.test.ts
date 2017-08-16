@@ -10,10 +10,10 @@ describe('expressPresenter.getProfiles using the alternate request syntax', () =
 
   it('should return no profile ids when getting a non-existing activity id', async () => {
     await supertest
-      .post('/xAPI/activities/profile')
+      .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
       .query({ method: 'GET' })
-      .send({ agent: TEST_MBOX_AGENT })
+      .send({ agent: JSON.stringify(TEST_MBOX_AGENT) })
       .expect(OK_200_HTTP_CODE, []);
   });
 });

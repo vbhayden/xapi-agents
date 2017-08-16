@@ -5,7 +5,6 @@ import {
   TEST_CLIENT,
   TEST_IMMUTABLE_AGENT,
   TEST_IMMUTABLE_CONTENT,
-  TEST_MBOX_AGENT,
   TEST_PROFILE_ID,
 } from './testValues';
 

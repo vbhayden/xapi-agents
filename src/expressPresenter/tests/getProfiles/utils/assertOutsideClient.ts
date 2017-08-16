@@ -1,11 +1,6 @@
-import { TEST_MBOX_AGENT } from '../../../../utils/testValues';
 import { OK_200_HTTP_CODE } from '../../../utils/httpCodes';
-import supertest from '../../utils/supertest';
+import getProfiles from './getProfiles';
 
 export default async () => {
-  const agent = TEST_MBOX_AGENT;
-  await supertest
-    .get('/xAPI/activities/profile')
-    .query({ agent })
-    .expect(OK_200_HTTP_CODE, []);
+  await getProfiles().expect(OK_200_HTTP_CODE, []);
 };

@@ -58,7 +58,7 @@ exports.default = function (config) {
             isExistingProfile = false;
             agent = opts.agent, profileId = opts.profileId, client = opts.client, ifMatch = opts.ifMatch, ifNoneMatch = opts.ifNoneMatch;
             checkMaxEtags_1.default(ifMatch, ifNoneMatch);
-            config.state.activityProfiles = config.state.activityProfiles.map(function (profile) {
+            config.state.agentProfiles = config.state.agentProfiles.map(function (profile) {
                 var isMatch = matchUniqueProfile_1.default({ client: client, agent: agent, profile: profile, profileId: profileId });
                 var isJson = (isMatch &&
                     profile.contentType === 'application/json' &&

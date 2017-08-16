@@ -1,6 +1,5 @@
 import * as stringToStream from 'string-to-stream';
 import createTextProfile from './createTextProfile';
-import service from './testService';
 import { TEST_IMMUTABLE_AGENT, TEST_IMMUTABLE_CONTENT } from './testValues';
 
 export default async () => {

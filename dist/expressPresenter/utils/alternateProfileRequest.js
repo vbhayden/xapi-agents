@@ -54,7 +54,7 @@ exports.default = function (_a) {
                     if (req.header('Content-Type') !== 'application/x-www-form-urlencoded') {
                         throw new InvalidContentType_1.default(req.header('Content-Type'));
                     }
-                    _a = method;
+                    _a = method.toUpperCase();
                     switch (_a) {
                         case 'POST': return [3 /*break*/, 1];
                         case 'GET': return [3 /*break*/, 4];

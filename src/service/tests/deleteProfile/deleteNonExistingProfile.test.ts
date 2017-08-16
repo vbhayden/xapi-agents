@@ -1,7 +1,7 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import { Warnings } from 'rulr';
-import { TEST_INVALID_AGENT, TEST_MBOX_AGENT } from '../../../utils/testValues';
+import { TEST_INVALID_AGENT } from '../../../utils/testValues';
 import setup from '../utils/setup';
 import deleteProfile from './utils/deleteProfile';
 
@@ -9,12 +9,12 @@ describe('deleteProfile with non-existing profile', () => {
   setup();
 
   it('should error when deleting', async () => {
-    const promise = deleteProfile(TEST_MBOX_AGENT);
+    const promise = deleteProfile();
     await assertError(NoModel, promise);
   });
 
   it('should throw warnings when using an invalid agent', async () => {
-    const promise = deleteProfile(TEST_INVALID_AGENT);
+    const promise = deleteProfile({ agent: TEST_INVALID_AGENT });
     await assertError(Warnings, promise);
   });
 });

@@ -22,7 +22,7 @@ export default async ({ config, method, req, res }: Options) => {
     throw new InvalidContentType(req.header('Content-Type'));
   }
 
-  switch (method) {
+  switch (method.toUpperCase()) {
     case 'POST': {
       const opts = await getAlternateProfileWriteOpts(config, req);
       await config.service.patchProfile(opts);

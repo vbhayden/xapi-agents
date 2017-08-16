@@ -1,4 +1,3 @@
-import Agent from '../../../../models/Agent';
 import DeleteProfileOptions from '../../../../serviceFactory/options/DeleteProfileOptions';
 import service from '../../../../utils/testService';
 import { TEST_CLIENT, TEST_MBOX_AGENT, TEST_PROFILE_ID } from '../../../../utils/testValues';

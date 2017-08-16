@@ -84,7 +84,7 @@ exports.default = function (config) {
                         throw new IfMatch_1.default();
                     }
                     /* istanbul ignore next */
-                    throw new NoModel_1.default('Activity Profile');
+                    throw new NoModel_1.default('Agent Profile');
             }
         });
     }); };

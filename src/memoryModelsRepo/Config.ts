@@ -2,7 +2,7 @@
 import Profile from '../models/Profile';
 
 export interface State {
-  activityProfiles: Profile[];
+  agentProfiles: Profile[];
 }
 
 interface Config {

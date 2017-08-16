@@ -42,17 +42,14 @@ var testValues_1 = require("../../../utils/testValues");
 var setup_1 = require("../utils/setup");
 var overwriteProfile_1 = require("./utils/overwriteProfile");
 describe('overwriteProfile when outside client', function () {
-    var service = setup_1.default();
+    setup_1.default();
     var overwriteOutsideProfile = function (client) { return __awaiter(_this, void 0, void 0, function () {
+        var content;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, service.overwriteProfile({
-                        agent: testValues_1.TEST_MBOX_AGENT,
-                        client: client,
-                        content: stringToStream('unused_content'),
-                        contentType: testValues_1.TEXT_CONTENT_TYPE,
-                        profileId: testValues_1.TEST_PROFILE_ID,
-                    })];
+                case 0:
+                    content = stringToStream('unused_content');
+                    return [4 /*yield*/, overwriteProfile_1.default({ client: client, content: content })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -62,7 +59,7 @@ describe('overwriteProfile when outside client', function () {
     it('should not overwrite existing model when using a different organisation', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, overwriteProfile_1.default(testValues_1.TEST_MBOX_AGENT, testValues_1.TEST_CONTENT)];
+                case 0: return [4 /*yield*/, overwriteProfile_1.default()];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, overwriteOutsideProfile(testValues_1.TEST_CLIENT_OUTSIDE_ORG)];
@@ -78,7 +75,7 @@ describe('overwriteProfile when outside client', function () {
     it('should not overwrite existing model when using a different store', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, overwriteProfile_1.default(testValues_1.TEST_MBOX_AGENT, testValues_1.TEST_CONTENT)];
+                case 0: return [4 /*yield*/, overwriteProfile_1.default()];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, overwriteOutsideProfile(testValues_1.TEST_CLIENT_OUTSIDE_STORE)];

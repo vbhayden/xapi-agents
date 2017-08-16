@@ -53,6 +53,6 @@ export default (config: Config) => {
     }
 
     /* istanbul ignore next */
-    throw new NoModel('Activity Profile');
+    throw new NoModel('Agent Profile');
   };
 };

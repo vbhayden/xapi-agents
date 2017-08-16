@@ -44,14 +44,14 @@ exports.default = function (config) {
         return __generator(this, function (_b) {
             client = opts.client;
             agent = opts.agent;
-            matchingProfiles = config.state.activityProfiles.filter(function (profile) {
+            matchingProfiles = config.state.agentProfiles.filter(function (profile) {
                 return (matchProfileIdentifier_1.default({ client: client, agent: agent, profile: profile }) &&
                     profile.profileId === opts.profileId);
             });
             isExistingIfi = matchingProfiles.length !== 0;
             if (!isExistingIfi) {
                 /* istanbul ignore next */
-                throw new NoModel_1.default('Activity Profile');
+                throw new NoModel_1.default('Agent Profile');
             }
             _a = matchingProfiles[0], id = _a.id, content = _a.content, contentType = _a.contentType, updatedAt = _a.updatedAt, etag = _a.etag;
             return [2 /*return*/, { id: id, content: content, contentType: contentType, updatedAt: updatedAt, etag: etag }];

@@ -45,10 +45,10 @@ describe('expressPresenter.getProfiles using the alternate request syntax', func
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, supertest
-                        .post('/xAPI/activities/profile')
+                        .post('/xAPI/agents/profile')
                         .set('Content-Type', testValues_1.ALTERNATE_CONTENT_TYPE)
                         .query({ method: 'GET' })
-                        .send({ agent: testValues_1.TEST_MBOX_AGENT })
+                        .send({ agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT) })
                         .expect(httpCodes_1.OK_200_HTTP_CODE, [])];
                 case 1:
                     _a.sent();

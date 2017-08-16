@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var createTextProfile_1 = require("../../../utils/createTextProfile");
 var testValues_1 = require("../../../utils/testValues");
 var httpCodes_1 = require("../../utils/httpCodes");
-var createTextProfile_1 = require("../utils/createTextProfile");
 var setup_1 = require("../utils/setup");
 describe('expressPresenter.getProfile using the alternate request syntax', function () {
     var supertest = setup_1.default().supertest;
@@ -49,11 +49,11 @@ describe('expressPresenter.getProfile using the alternate request syntax', funct
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, supertest
-                            .post('/xAPI/activities/profile')
+                            .post('/xAPI/agents/profile')
                             .set('Content-Type', testValues_1.ALTERNATE_CONTENT_TYPE)
                             .query({ method: 'GET' })
                             .send({
-                            agent: testValues_1.TEST_MBOX_AGENT,
+                            agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT),
                             profileId: testValues_1.TEST_PROFILE_ID,
                         })
                             .expect(httpCodes_1.OK_200_HTTP_CODE, testValues_1.TEST_CONTENT)];

@@ -7,7 +7,7 @@ describe('expressPresenter using the alternate request syntax', () => {
 
   it('should return error when using an invalid method', async () => {
     await supertest
-      .post('/xAPI/activities/profile')
+      .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
       .query({ method: 'invalid_method' })
       .expect(CLIENT_ERROR_400_HTTP_CODE);
@@ -15,7 +15,7 @@ describe('expressPresenter using the alternate request syntax', () => {
 
   it('should return error when using an invalid content type', async () => {
     await supertest
-      .post('/xAPI/activities/profile')
+      .post('/xAPI/agents/profile')
       .set('Content-Type', 'invalid_content_type')
       .query({ method: 'GET' })
       .expect(CLIENT_ERROR_400_HTTP_CODE);

@@ -46,7 +46,7 @@ exports.default = function (config) {
         return __generator(this, function (_a) {
             client = opts.client;
             agent = opts.agent;
-            matchingProfiles = config.state.activityProfiles.filter(function (profile) {
+            matchingProfiles = config.state.agentProfiles.filter(function (profile) {
                 return (matchProfileIdentifier_1.default({ client: client, agent: agent, profile: profile }) &&
                     matchProfileSince(profile, opts.since));
             });

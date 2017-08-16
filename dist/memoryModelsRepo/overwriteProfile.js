@@ -56,7 +56,7 @@ exports.default = function (config) {
         return __generator(this, function (_a) {
             agent = opts.agent, profileId = opts.profileId, client = opts.client, ifMatch = opts.ifMatch, ifNoneMatch = opts.ifNoneMatch;
             checkMaxEtags_1.default(ifMatch, ifNoneMatch);
-            config.state.activityProfiles = config.state.activityProfiles.map(function (profile) {
+            config.state.agentProfiles = config.state.agentProfiles.map(function (profile) {
                 var isMatch = matchUniqueProfile_1.default({ client: client, agent: agent, profile: profile, profileId: profileId });
                 if (!isMatch) {
                     return profile;

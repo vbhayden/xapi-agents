@@ -1,3 +1,4 @@
+import createTextProfile from '../../../utils/createTextProfile';
 import {
   ALTERNATE_CONTENT_TYPE,
   TEST_CONTENT,
@@ -5,7 +6,6 @@ import {
   TEST_PROFILE_ID,
 } from '../../../utils/testValues';
 import { OK_200_HTTP_CODE } from '../../utils/httpCodes';
-import createTextProfile from '../utils/createTextProfile';
 import setup from '../utils/setup';
 
 describe('expressPresenter.getProfile using the alternate request syntax', () => {
@@ -14,11 +14,11 @@ describe('expressPresenter.getProfile using the alternate request syntax', () =>
   it('should get when getting text', async () => {
     await createTextProfile();
     await supertest
-      .post('/xAPI/activities/profile')
+      .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
       .query({ method: 'GET' })
       .send({
-        agent: TEST_MBOX_AGENT,
+        agent: JSON.stringify(TEST_MBOX_AGENT),
         profileId: TEST_PROFILE_ID,
       })
       .expect(OK_200_HTTP_CODE, TEST_CONTENT);

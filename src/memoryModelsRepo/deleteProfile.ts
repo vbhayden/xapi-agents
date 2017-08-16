@@ -8,7 +8,7 @@ import matchProfileIdentifier from './utils/matchProfileIdentifier';
 
 export default (config: Config) => {
   return async (opts: DeleteProfileOptions): Promise<DeleteProfileResult> => {
-    const storedProfiles = config.state.activityProfiles;
+    const storedProfiles = config.state.agentProfiles;
     const client = opts.client;
     const agent = opts.agent;
     let existingId: string|undefined;
@@ -32,11 +32,11 @@ export default (config: Config) => {
     });
 
     if (existingId !== undefined && existingContentType !== undefined) {
-      config.state.activityProfiles = remainingProfiles;
+      config.state.agentProfiles = remainingProfiles;
       return { id: existingId, contentType: existingContentType };
     }
 
     /* istanbul ignore next */
-    throw new NoModel('Activity Profile');
+    throw new NoModel('Agent Profile');
   };
 };

@@ -39,15 +39,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var testValues_1 = require("../../../utils/testValues");
 var httpCodes_1 = require("../../utils/httpCodes");
 var setup_1 = require("../utils/setup");
-describe('expressPresenter.getFullAgent', function () {
+describe.skip('expressPresenter.getFullAgent', function () {
     var supertest = setup_1.default().supertest;
     it('should return the agent when using a valid agent', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, supertest
-                        .get('/xAPI/activities')
+                        .get('/xAPI/agents')
                         .query({
-                        agent: testValues_1.TEST_MBOX_AGENT,
+                        agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT),
                     })
                         .expect(httpCodes_1.OK_200_HTTP_CODE, {
                         id: testValues_1.TEST_MBOX_AGENT,
@@ -62,9 +62,9 @@ describe('expressPresenter.getFullAgent', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, supertest
-                        .get('/xAPI/activities')
+                        .get('/xAPI/agents')
                         .query({
-                        agent: testValues_1.TEST_INVALID_AGENT,
+                        agent: JSON.stringify(testValues_1.TEST_INVALID_AGENT),
                     })
                         .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 1:
