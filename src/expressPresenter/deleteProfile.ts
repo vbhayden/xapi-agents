@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { xapiHeaderVersion } from '../utils/constants';
 import Config from './Config';
 import catchErrors from './utils/catchErrors';
 import getAgent from './utils/getAgent';
@@ -16,7 +17,7 @@ export default (config: Config) => {
 
     await config.service.deleteProfile({ agent, client, profileId, ifMatch });
     res.status(NO_CONTENT_204_HTTP_CODE);
-    res.setHeader('X-Experience-API-Version', '1.0.0');
+    res.setHeader('X-Experience-API-Version', xapiHeaderVersion);
     res.send();
   });
 };

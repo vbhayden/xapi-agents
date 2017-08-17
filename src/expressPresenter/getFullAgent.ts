@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { xapiHeaderVersion } from '../utils/constants';
 import Config from './Config';
 import catchErrors from './utils/catchErrors';
 import getAgent from './utils/getAgent';
@@ -11,7 +12,7 @@ export default (config: Config) => {
     const agent = getAgent(req.query.agent);
     const result = await config.service.getFullAgent({ client, agent });
     res.status(OK_200_HTTP_CODE);
-    res.setHeader('X-Experience-API-Version', '1.0.0');
+    res.setHeader('X-Experience-API-Version', xapiHeaderVersion);
     res.json(result);
   });
 };

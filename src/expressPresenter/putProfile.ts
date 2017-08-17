@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { xapiHeaderVersion } from '../utils/constants';
 import Config from './Config';
 import catchErrors from './utils/catchErrors';
 import getProfileWriteOpts from './utils/getProfileWriteOpts';
@@ -9,7 +10,7 @@ export default (config: Config) => {
     const opts = await getProfileWriteOpts(config, req);
     await config.service.overwriteProfile(opts);
     res.status(NO_CONTENT_204_HTTP_CODE);
-    res.setHeader('X-Experience-API-Version', '1.0.0');
+    res.setHeader('X-Experience-API-Version', xapiHeaderVersion);
     res.send();
   });
 };

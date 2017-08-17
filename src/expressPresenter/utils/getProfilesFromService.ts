@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
+import { xapiHeaderVersion } from '../../utils/constants';
 import Config from '../Config';
 import { OK_200_HTTP_CODE } from './httpCodes';
 
@@ -15,7 +16,7 @@ export interface Options {
 export default async ({ agent, client, config, res, since }: Options) => {
   const getProfilesResult = await config.service.getProfiles({ agent, client, since });
   res.status(OK_200_HTTP_CODE);
-  res.setHeader('X-Experience-API-Version', '1.0.0');
+  res.setHeader('X-Experience-API-Version', xapiHeaderVersion);
   res.json(getProfilesResult.profileIds);
   return;
 };

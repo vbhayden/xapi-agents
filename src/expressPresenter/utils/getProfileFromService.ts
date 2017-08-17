@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
+import { xapiHeaderVersion } from '../../utils/constants';
 import Config from '../Config';
 import { OK_200_HTTP_CODE } from './httpCodes';
 
@@ -17,7 +18,7 @@ export default async ({ agent, client, config, profileId, res }: Options) => {
   res.status(OK_200_HTTP_CODE);
   res.setHeader('ETag', `"${getProfileResult.etag}"`);
   res.setHeader('Last-Modified', getProfileResult.updatedAt.toISOString());
-  res.setHeader('X-Experience-API-Version', '1.0.0');
+  res.setHeader('X-Experience-API-Version', xapiHeaderVersion);
   res.setHeader('Content-Type', getProfileResult.contentType);
   getProfileResult.content.pipe(res);
   return;
