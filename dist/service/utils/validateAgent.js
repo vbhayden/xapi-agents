@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var lodash_1 = require("lodash");
 var rulr = require("rulr");
 var xapi = require("xapi-validation/dist/factory");
 var IfiCountWarning_1 = require("xapi-validation/dist/warnings/IfiCountWarning");
@@ -14,7 +15,7 @@ var rule = rulr.maybe(rulr.composeRules([
         openid: rulr.optional(xapi.iri),
     }),
     function (data, path) {
-        var trimmedAgent = pick(data, ['account', 'mbox', 'mbox_sha1sum', 'openid']);
+        var trimmedAgent = lodash_1.pick(data, ['account', 'mbox', 'mbox_sha1sum', 'openid']);
         var keys = Object.keys(trimmedAgent);
         if (keys.length > 1) {
             return [new IfiCountWarning_1.default(data, path, keys)];
