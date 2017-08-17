@@ -1,5 +1,5 @@
 {
-  "name": "xapi-activities",
+  "name": "xapi-agents",
   "version": "1.0.0",
   "description": "A server for xAPI activities",
   "main": "dist/index.js",
@@ -7,7 +7,7 @@
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LearningLocker/xapi-activities.git"
+    "url": "https://github.com/LearningLocker/xapi-agents.git"
   },
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc",
