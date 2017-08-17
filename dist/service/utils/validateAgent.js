@@ -9,10 +9,13 @@ var rule = rulr.maybe(rulr.composeRules([
         account: rulr.optional(xapi.account),
         mbox: rulr.optional(xapi.mailto),
         mbox_sha1sum: rulr.optional(xapi.sha1),
+        name: rulr.optional(xapi.stringValue),
+        objectType: rulr.optional(xapi.stringValue),
         openid: rulr.optional(xapi.iri),
     }),
     function (data, path) {
-        var keys = Object.keys(data);
+        var trimmedAgent = pick(data, ['account', 'mbox', 'mbox_sha1sum', 'openid']);
+        var keys = Object.keys(trimmedAgent);
         if (keys.length > 1) {
             return [new IfiCountWarning_1.default(data, path, keys)];
         }
