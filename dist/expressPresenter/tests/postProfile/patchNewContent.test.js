@@ -109,5 +109,16 @@ describe('expressPresenter.postProfile with new content', function () {
             }
         });
     }); });
+    it('should throw warnings when using an invalid json content', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, patchContent_1.default(testValues_1.TEST_INVALID_JSON_CONTENT, testValues_1.JSON_CONTENT_TYPE)
+                        .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });
 //# sourceMappingURL=patchNewContent.test.js.map

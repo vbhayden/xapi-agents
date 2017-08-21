@@ -1,11 +1,13 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import { Warnings } from 'rulr';
+import JsonSyntaxError from '../../../errors/JsonSyntaxError';
 import NonJsonObject from '../../../errors/NonJsonObject';
 import assertProfile from '../../../utils/assertProfile';
 import {
   JSON_CONTENT_TYPE,
   TEST_CONTENT,
   TEST_INVALID_AGENT,
+  TEST_INVALID_JSON_CONTENT,
   TEST_JSON_CONTENT,
   TEST_OBJECT_CONTENT,
   TEXT_CONTENT_TYPE,
@@ -37,5 +39,10 @@ describe('patchProfile with new content', () => {
       agent: TEST_INVALID_AGENT,
     });
     await assertError(Warnings, promise);
+  });
+
+  it('should throw warnings when using an invalid json content', async () => {
+    const promise = patchContent(TEST_INVALID_JSON_CONTENT, JSON_CONTENT_TYPE);
+    await assertError(JsonSyntaxError, promise);
   });
 });

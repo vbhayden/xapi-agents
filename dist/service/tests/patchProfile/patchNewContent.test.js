@@ -38,6 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var assertError_1 = require("jscommons/dist/tests/utils/assertError");
 var rulr_1 = require("rulr");
+var JsonSyntaxError_1 = require("../../../errors/JsonSyntaxError");
 var NonJsonObject_1 = require("../../../errors/NonJsonObject");
 var assertProfile_1 = require("../../../utils/assertProfile");
 var testValues_1 = require("../../../utils/testValues");
@@ -94,6 +95,19 @@ describe('patchProfile with new content', function () {
                         agent: testValues_1.TEST_INVALID_AGENT,
                     });
                     return [4 /*yield*/, assertError_1.default(rulr_1.Warnings, promise)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should throw warnings when using an invalid json content', function () { return __awaiter(_this, void 0, void 0, function () {
+        var promise;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    promise = patchContent_1.default(testValues_1.TEST_INVALID_JSON_CONTENT, testValues_1.JSON_CONTENT_TYPE);
+                    return [4 /*yield*/, assertError_1.default(JsonSyntaxError_1.default, promise)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

@@ -53,6 +53,7 @@ exports.TEST_JSON_CONTENT = '[]';
 exports.TEST_OBJECT_CONTENT = '{"foo":1}';
 exports.TEST_OBJECT_PATCH_CONTENT = '{"bar":2}';
 exports.TEST_OBJECT_MERGED_CONTENT = '{"foo":1,"bar":2}';
+exports.TEST_INVALID_JSON_CONTENT = '{"foo:1,"bar":2}';
 exports.TEXT_CONTENT_TYPE = 'text/plain';
 exports.JSON_CONTENT_TYPE = 'application/json';
 exports.ALTERNATE_CONTENT_TYPE = 'application/x-www-form-urlencoded';

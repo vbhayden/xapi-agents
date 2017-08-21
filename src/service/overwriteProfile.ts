@@ -1,5 +1,6 @@
 import * as streamToString from 'stream-to-string';
 import OverwriteProfileOptions from '../serviceFactory/options/OverwriteProfileOptions';
+import parseJson from '../utils/parseJson';
 import Config from './Config';
 import checkProfileWriteScopes from './utils/checkProfileWriteScopes';
 import createEtag from './utils/createEtag';
@@ -14,7 +15,7 @@ export default (config: Config) => {
     const etag = createEtag();
     const jsonContent = (
       opts.contentType === 'application/json'
-      ? JSON.parse(await streamToString(opts.content))
+      ? parseJson(await streamToString(opts.content), ['content'])
       : undefined
     );
     const overwriteProfileResult = await config.repo.overwriteProfile({

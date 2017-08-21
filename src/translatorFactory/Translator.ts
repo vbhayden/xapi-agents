@@ -5,6 +5,7 @@ import IfMatch from '../errors/IfMatch';
 import IfNoneMatch from '../errors/IfNoneMatch';
 import InvalidContentType from '../errors/InvalidContentType';
 import InvalidMethod from '../errors/InvalidMethod';
+import JsonSyntaxError from '../errors/JsonSyntaxError';
 import MaxEtags from '../errors/MaxEtags';
 import NonJsonObject from '../errors/NonJsonObject';
 
@@ -17,6 +18,7 @@ interface Translator extends CommonTranslator {
   readonly maxEtagsError: (err: MaxEtags) => string;
   readonly nonJsonObjectError: (err: NonJsonObject) => string;
   readonly xapiTypeWarning: (err: TypeWarning) => string;
+  readonly jsonSyntaxError: (err: JsonSyntaxError) => string;
 }
 
 export default Translator;

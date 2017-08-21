@@ -2,6 +2,7 @@ import { isPlainObject } from 'lodash';
 import * as streamToString from 'stream-to-string';
 import NonJsonObject from '../errors/NonJsonObject';
 import PatchProfileOptions from '../serviceFactory/options/PatchProfileOptions';
+import parseJson from '../utils/parseJson';
 import Config from './Config';
 import checkProfileWriteScopes from './utils/checkProfileWriteScopes';
 import createEtag from './utils/createEtag';
@@ -17,7 +18,7 @@ export default (config: Config) => {
       throw new NonJsonObject();
     }
 
-    const content = JSON.parse(await streamToString(opts.content));
+    const content = parseJson(await streamToString(opts.content), ['content']);
     if (!isPlainObject(content)) {
       throw new NonJsonObject();
     }

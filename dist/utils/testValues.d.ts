@@ -26,6 +26,7 @@ export declare const TEST_JSON_CONTENT = "[]";
 export declare const TEST_OBJECT_CONTENT = "{\"foo\":1}";
 export declare const TEST_OBJECT_PATCH_CONTENT = "{\"bar\":2}";
 export declare const TEST_OBJECT_MERGED_CONTENT = "{\"foo\":1,\"bar\":2}";
+export declare const TEST_INVALID_JSON_CONTENT = "{\"foo:1,\"bar\":2}";
 export declare const TEXT_CONTENT_TYPE = "text/plain";
 export declare const JSON_CONTENT_TYPE = "application/json";
 export declare const ALTERNATE_CONTENT_TYPE = "application/x-www-form-urlencoded";

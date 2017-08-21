@@ -18,6 +18,10 @@ const translator: Translator = {
   invalidMethodError: (err) => (
     `Method (${err.method}) is invalid for alternate request syntax`
   ),
+  jsonSyntaxError: (err) => {
+    const path = stringPath(err.path);
+    return `Expected valid JSON in ${path}`;
+  },
   maxEtagsError: () => (
     'IfMatch and IfNoneMatch cannot be used at the same time'
   ),

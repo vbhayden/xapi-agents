@@ -1,7 +1,9 @@
 import assertProfile from '../../../utils/assertProfile';
 import {
+  JSON_CONTENT_TYPE,
   TEST_CONTENT,
   TEST_INVALID_AGENT,
+  TEST_INVALID_JSON_CONTENT,
 } from '../../../utils/testValues';
 import { CLIENT_ERROR_400_HTTP_CODE, NO_CONTENT_204_HTTP_CODE } from '../../utils/httpCodes';
 import setup from '../utils/setup';
@@ -27,5 +29,10 @@ describe('expressPresenter.putProfile with non-existing model', () => {
 
   it('should throw warnings when missing the profile id', async () => {
     await overwriteProfile({ profileId: undefined }).expect(CLIENT_ERROR_400_HTTP_CODE);
+  });
+
+  it('should throw warnings when using an invalid json content', async () => {
+    await overwriteProfile({}, TEST_INVALID_JSON_CONTENT, JSON_CONTENT_TYPE)
+      .expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 });
