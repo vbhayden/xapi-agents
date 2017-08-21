@@ -44,26 +44,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var assert = require("assert");
-var assertError_1 = require("jscommons/dist/tests/utils/assertError");
-var rulr_1 = require("rulr");
 var testValues_1 = require("../../../utils/testValues");
+var httpCodes_1 = require("../../utils/httpCodes");
 var setup_1 = require("../utils/setup");
-describe('getFullAgent with non-existing model', function () {
-    var service = setup_1.default();
+var getFullAgent_1 = require("./utils/getFullAgent");
+describe('expressPresenter.getFullAgent with non-existing model', function () {
+    setup_1.default();
     var assertFullAgent = function (agent, resultOverrides) { return __awaiter(_this, void 0, void 0, function () {
-        var expectedResult, fullAgent;
+        var expectedResult;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     expectedResult = __assign({ account: [], mbox: [], mbox_sha1sum: [], name: [], objectType: 'Person', openid: [] }, resultOverrides);
-                    return [4 /*yield*/, service.getFullAgent({
-                            agent: agent,
-                            client: testValues_1.TEST_CLIENT,
-                        })];
+                    return [4 /*yield*/, getFullAgent_1.default(agent).expect(httpCodes_1.OK_200_HTTP_CODE, expectedResult)];
                 case 1:
-                    fullAgent = _a.sent();
-                    assert.deepEqual(fullAgent, expectedResult);
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
@@ -117,15 +112,9 @@ describe('getFullAgent with non-existing model', function () {
         });
     }); });
     it('should throw warnings when using an invalid agent', function () { return __awaiter(_this, void 0, void 0, function () {
-        var promise;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    promise = service.getFullAgent({
-                        agent: testValues_1.TEST_INVALID_AGENT,
-                        client: testValues_1.TEST_CLIENT,
-                    });
-                    return [4 /*yield*/, assertError_1.default(rulr_1.Warnings, promise)];
+                case 0: return [4 /*yield*/, getFullAgent_1.default(testValues_1.TEST_INVALID_AGENT).expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -133,4 +122,4 @@ describe('getFullAgent with non-existing model', function () {
         });
     }); });
 });
-//# sourceMappingURL=getFullAgent.test.js.map
+//# sourceMappingURL=getNonExistingModel.test.js.map

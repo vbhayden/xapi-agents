@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -39,18 +47,67 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var testValues_1 = require("../../../utils/testValues");
 var httpCodes_1 = require("../../utils/httpCodes");
 var setup_1 = require("../utils/setup");
-describe.skip('expressPresenter.getFullAgent', function () {
+describe('expressPresenter.getFullAgent with non-existing model', function () {
     var supertest = setup_1.default().supertest;
-    it('should return the agent when using a valid agent', function () { return __awaiter(_this, void 0, void 0, function () {
+    var assertFullAgent = function (agent, resultOverrides) { return __awaiter(_this, void 0, void 0, function () {
+        var expectedResult;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, supertest
-                        .get('/xAPI/agents')
-                        .query({
-                        agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT),
-                    })
-                        .expect(httpCodes_1.OK_200_HTTP_CODE, {
-                        id: testValues_1.TEST_MBOX_AGENT,
+                case 0:
+                    expectedResult = __assign({ account: [], mbox: [], mbox_sha1sum: [], name: [], objectType: 'Person', openid: [] }, resultOverrides);
+                    return [4 /*yield*/, supertest
+                            .get('/xAPI/agents')
+                            .query({
+                            agent: JSON.stringify(agent),
+                        })
+                            .expect(httpCodes_1.OK_200_HTTP_CODE, expectedResult)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    it('should return the agent when using mbox', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, assertFullAgent(testValues_1.TEST_MBOX_AGENT, {
+                        mbox: [testValues_1.TEST_MBOX_AGENT.mbox],
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return the agent when using mbox_sha1sum', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, assertFullAgent(testValues_1.TEST_MBOXSHA1_AGENT, {
+                        mbox_sha1sum: [testValues_1.TEST_MBOXSHA1_AGENT.mbox_sha1sum],
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return the agent when using openid', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, assertFullAgent(testValues_1.TEST_OPENID_AGENT, {
+                        openid: [testValues_1.TEST_OPENID_AGENT.openid],
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return the agent when using account', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, assertFullAgent(testValues_1.TEST_ACCOUNT_AGENT, {
+                        account: [testValues_1.TEST_ACCOUNT_AGENT.account],
                     })];
                 case 1:
                     _a.sent();

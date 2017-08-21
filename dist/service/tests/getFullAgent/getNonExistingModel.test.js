@@ -49,18 +49,16 @@ var assertError_1 = require("jscommons/dist/tests/utils/assertError");
 var rulr_1 = require("rulr");
 var testValues_1 = require("../../../utils/testValues");
 var setup_1 = require("../utils/setup");
+var getFullAgent_1 = require("./utils/getFullAgent");
 describe('getFullAgent with non-existing model', function () {
-    var service = setup_1.default();
+    setup_1.default();
     var assertFullAgent = function (agent, resultOverrides) { return __awaiter(_this, void 0, void 0, function () {
         var expectedResult, fullAgent;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     expectedResult = __assign({ account: [], mbox: [], mbox_sha1sum: [], name: [], objectType: 'Person', openid: [] }, resultOverrides);
-                    return [4 /*yield*/, service.getFullAgent({
-                            agent: agent,
-                            client: testValues_1.TEST_CLIENT,
-                        })];
+                    return [4 /*yield*/, getFullAgent_1.default({ agent: agent })];
                 case 1:
                     fullAgent = _a.sent();
                     assert.deepEqual(fullAgent, expectedResult);
@@ -121,10 +119,7 @@ describe('getFullAgent with non-existing model', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    promise = service.getFullAgent({
-                        agent: testValues_1.TEST_INVALID_AGENT,
-                        client: testValues_1.TEST_CLIENT,
-                    });
+                    promise = getFullAgent_1.default({ agent: testValues_1.TEST_INVALID_AGENT });
                     return [4 /*yield*/, assertError_1.default(rulr_1.Warnings, promise)];
                 case 1:
                     _a.sent();
@@ -133,4 +128,4 @@ describe('getFullAgent with non-existing model', function () {
         });
     }); });
 });
-//# sourceMappingURL=getFullAgent.test.js.map
+//# sourceMappingURL=getNonExistingModel.test.js.map

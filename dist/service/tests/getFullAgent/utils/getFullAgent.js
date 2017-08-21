@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -36,25 +44,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var checkProfileReadScopes_1 = require("./utils/checkProfileReadScopes");
-var validateAgent_1 = require("./utils/validateAgent");
-var getCurrentFullAgent = function (agent) {
-    return {
-        account: agent.account === undefined ? [] : [agent.account],
-        mbox: agent.mbox === undefined ? [] : [agent.mbox],
-        mbox_sha1sum: agent.mbox_sha1sum === undefined ? [] : [agent.mbox_sha1sum],
-        name: [],
-        objectType: 'Person',
-        openid: agent.openid === undefined ? [] : [agent.openid],
-    };
-};
-exports.default = function (_config) {
-    return function (opts) { return __awaiter(_this, void 0, void 0, function () {
+var testService_1 = require("../../../../utils/testService");
+var testValues_1 = require("../../../../utils/testValues");
+exports.default = function (optsOverrides) {
+    if (optsOverrides === void 0) { optsOverrides = {}; }
+    return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            checkProfileReadScopes_1.default(opts.client.scopes);
-            validateAgent_1.default(opts.agent);
-            return [2 /*return*/, getCurrentFullAgent(opts.agent)];
+            return [2 /*return*/, testService_1.default.getFullAgent(__assign({ agent: testValues_1.TEST_MBOX_AGENT, client: testValues_1.TEST_CLIENT }, optsOverrides))];
         });
-    }); };
+    });
 };
 //# sourceMappingURL=getFullAgent.js.map

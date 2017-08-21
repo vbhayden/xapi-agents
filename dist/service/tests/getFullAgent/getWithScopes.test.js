@@ -36,25 +36,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var checkProfileReadScopes_1 = require("./utils/checkProfileReadScopes");
-var validateAgent_1 = require("./utils/validateAgent");
-var getCurrentFullAgent = function (agent) {
-    return {
-        account: agent.account === undefined ? [] : [agent.account],
-        mbox: agent.mbox === undefined ? [] : [agent.mbox],
-        mbox_sha1sum: agent.mbox_sha1sum === undefined ? [] : [agent.mbox_sha1sum],
-        name: [],
-        objectType: 'Person',
-        openid: agent.openid === undefined ? [] : [agent.openid],
-    };
-};
-exports.default = function (_config) {
-    return function (opts) { return __awaiter(_this, void 0, void 0, function () {
+var Forbidden_1 = require("jscommons/dist/errors/Forbidden");
+var assertError_1 = require("jscommons/dist/tests/utils/assertError");
+var testValues_1 = require("../../../utils/testValues");
+var setup_1 = require("../utils/setup");
+var getFullAgent_1 = require("./utils/getFullAgent");
+describe('getFullAgent with scopes', function () {
+    setup_1.default();
+    it('should throw forbidden error when using invalid scope', function () { return __awaiter(_this, void 0, void 0, function () {
+        var promise;
         return __generator(this, function (_a) {
-            checkProfileReadScopes_1.default(opts.client.scopes);
-            validateAgent_1.default(opts.agent);
-            return [2 /*return*/, getCurrentFullAgent(opts.agent)];
+            switch (_a.label) {
+                case 0:
+                    promise = getFullAgent_1.default({
+                        client: testValues_1.TEST_INVALID_SCOPE_CLIENT,
+                    });
+                    return [4 /*yield*/, assertError_1.default(Forbidden_1.default, promise)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
-    }); };
-};
-//# sourceMappingURL=getFullAgent.js.map
+    }); });
+    it('should not throw error when using valid scopes', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getFullAgent_1.default({
+                        client: testValues_1.TEST_VALID_SCOPE_CLIENT,
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+//# sourceMappingURL=getWithScopes.test.js.map
