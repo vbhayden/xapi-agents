@@ -56,57 +56,35 @@ describe('expressPresenter.getProfiles with existing model', function () {
             }
         });
     }); });
-    it('should return profile ids when using an mbox', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('should throw warnings when using an invalid agent', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_MBOX_AGENT })];
+                case 0: return [4 /*yield*/, getProfiles_1.default({
+                        agent: JSON.stringify(testValues_1.TEST_INVALID_AGENT),
+                    }).expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 1:
-                    _a.sent();
-                    return [4 /*yield*/, getProfiles_1.default({ agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT) })
-                            .expect(httpCodes_1.OK_200_HTTP_CODE, [testValues_1.TEST_PROFILE_ID])];
-                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should return profile ids when using an mbox_sha1sum', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('should throw warnings when missing the agent', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_MBOXSHA1_AGENT })];
+                case 0: return [4 /*yield*/, getProfiles_1.default({ agent: undefined }).expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 1:
-                    _a.sent();
-                    return [4 /*yield*/, getProfiles_1.default({ agent: JSON.stringify(testValues_1.TEST_MBOXSHA1_AGENT) })
-                            .expect(httpCodes_1.OK_200_HTTP_CODE, [testValues_1.TEST_PROFILE_ID])];
-                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
-    it('should return profile ids when using an openid', function () { return __awaiter(_this, void 0, void 0, function () {
+    it('should throw warnings when using invalid json in agent', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_OPENID_AGENT })];
+                case 0: return [4 /*yield*/, getProfiles_1.default({
+                        agent: testValues_1.TEST_INVALID_JSON_CONTENT,
+                    }).expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 1:
-                    _a.sent();
-                    return [4 /*yield*/, getProfiles_1.default({ agent: JSON.stringify(testValues_1.TEST_OPENID_AGENT) })
-                            .expect(httpCodes_1.OK_200_HTTP_CODE, [testValues_1.TEST_PROFILE_ID])];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it('should return profile ids when using an account', function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, createTextProfile_1.default({ agent: testValues_1.TEST_ACCOUNT_AGENT })];
-                case 1:
-                    _a.sent();
-                    return [4 /*yield*/, getProfiles_1.default({ agent: JSON.stringify(testValues_1.TEST_ACCOUNT_AGENT) })
-                            .expect(httpCodes_1.OK_200_HTTP_CODE, [testValues_1.TEST_PROFILE_ID])];
-                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }

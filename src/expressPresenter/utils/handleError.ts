@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
+import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
 import { Warnings } from 'rulr';
@@ -9,6 +9,7 @@ import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
 import InvalidContentType from '../../errors/InvalidContentType';
 import InvalidMethod from '../../errors/InvalidMethod';
+import JsonSyntaxError from '../../errors/JsonSyntaxError';
 import MaxEtags from '../../errors/MaxEtags';
 import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
@@ -35,7 +36,11 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case InvalidContentType: {
+    case JsonSyntaxError: {
+      const code = CLIENT_ERROR_400_HTTP_CODE;
+      const message = translator.jsonSyntaxError(err as JsonSyntaxError);
+      return sendMessage({ res, code, errorId, message });
+    } case InvalidContentType: {
       const code = CLIENT_ERROR_400_HTTP_CODE;
       const message = translator.invalidContentTypeError(err as InvalidContentType);
       return sendMessage({ res, code, errorId, message });

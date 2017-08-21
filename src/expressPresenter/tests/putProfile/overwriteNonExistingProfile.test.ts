@@ -23,6 +23,12 @@ describe('expressPresenter.putProfile with non-existing model', () => {
     }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 
+  it('should throw warnings when using invalid json in agent', async () => {
+    await overwriteProfile({
+      agent: TEST_INVALID_JSON_CONTENT,
+    }).expect(CLIENT_ERROR_400_HTTP_CODE);
+  });
+
   it('should throw warnings when missing the agent', async () => {
     await overwriteProfile({ agent: undefined }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });

@@ -1,12 +1,10 @@
 import createTextProfile from '../../../utils/createTextProfile';
 import {
-  TEST_ACCOUNT_AGENT,
-  TEST_MBOX_AGENT,
-  TEST_MBOXSHA1_AGENT,
-  TEST_OPENID_AGENT,
+  TEST_INVALID_AGENT,
+  TEST_INVALID_JSON_CONTENT,
   TEST_PROFILE_ID,
 } from '../../../utils/testValues';
-import { OK_200_HTTP_CODE } from '../../utils/httpCodes';
+import { CLIENT_ERROR_400_HTTP_CODE, OK_200_HTTP_CODE } from '../../utils/httpCodes';
 import setup from '../utils/setup';
 import getProfiles from './utils/getProfiles';
 
@@ -18,27 +16,19 @@ describe('expressPresenter.getProfiles with existing model', () => {
     await getProfiles().expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
   });
 
-  it('should return profile ids when using an mbox', async () => {
-    await createTextProfile({ agent: TEST_MBOX_AGENT });
-    await getProfiles({ agent: JSON.stringify(TEST_MBOX_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+  it('should throw warnings when using an invalid agent', async () => {
+    await getProfiles({
+      agent: JSON.stringify(TEST_INVALID_AGENT),
+    }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 
-  it('should return profile ids when using an mbox_sha1sum', async () => {
-    await createTextProfile({ agent: TEST_MBOXSHA1_AGENT });
-    await getProfiles({ agent: JSON.stringify(TEST_MBOXSHA1_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+  it('should throw warnings when missing the agent', async () => {
+    await getProfiles({ agent: undefined }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 
-  it('should return profile ids when using an openid', async () => {
-    await createTextProfile({ agent: TEST_OPENID_AGENT });
-    await getProfiles({ agent: JSON.stringify(TEST_OPENID_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
-  });
-
-  it('should return profile ids when using an account', async () => {
-    await createTextProfile({ agent: TEST_ACCOUNT_AGENT });
-    await getProfiles({ agent: JSON.stringify(TEST_ACCOUNT_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+  it('should throw warnings when using invalid json in agent', async () => {
+    await getProfiles({
+      agent: TEST_INVALID_JSON_CONTENT,
+    }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 });

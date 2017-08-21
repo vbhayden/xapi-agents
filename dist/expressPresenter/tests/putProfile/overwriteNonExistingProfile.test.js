@@ -68,6 +68,18 @@ describe('expressPresenter.putProfile with non-existing model', function () {
             }
         });
     }); });
+    it('should throw warnings when using invalid json in agent', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, overwriteProfile_1.default({
+                        agent: testValues_1.TEST_INVALID_JSON_CONTENT,
+                    }).expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     it('should throw warnings when missing the agent', function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {

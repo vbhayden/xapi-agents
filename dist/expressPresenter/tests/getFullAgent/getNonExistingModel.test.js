@@ -49,7 +49,7 @@ var httpCodes_1 = require("../../utils/httpCodes");
 var setup_1 = require("../utils/setup");
 var getFullAgent_1 = require("./utils/getFullAgent");
 describe('expressPresenter.getFullAgent with non-existing model', function () {
-    setup_1.default();
+    var supertest = setup_1.default().supertest;
     var assertFullAgent = function (agent, resultOverrides) { return __awaiter(_this, void 0, void 0, function () {
         var expectedResult;
         return __generator(this, function (_a) {
@@ -115,6 +115,21 @@ describe('expressPresenter.getFullAgent with non-existing model', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, getFullAgent_1.default(testValues_1.TEST_INVALID_AGENT).expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should throw warnings when using invalid json in agent', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, supertest
+                        .get('/xAPI/agents')
+                        .query({
+                        agent: testValues_1.TEST_INVALID_JSON_CONTENT,
+                    })
+                        .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

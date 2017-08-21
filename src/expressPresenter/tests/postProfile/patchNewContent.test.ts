@@ -35,6 +35,12 @@ describe('expressPresenter.postProfile with new content', () => {
     }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 
+  it('should throw warnings when using invalid json in agent', async () => {
+    await patchProfile({
+      agent: TEST_INVALID_JSON_CONTENT,
+    }).expect(CLIENT_ERROR_400_HTTP_CODE);
+  });
+
   it('should throw warnings when missing the agent', async () => {
     await patchProfile({ agent: undefined }).expect(CLIENT_ERROR_400_HTTP_CODE);
   });

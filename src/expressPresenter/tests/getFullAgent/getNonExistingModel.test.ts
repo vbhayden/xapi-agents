@@ -3,6 +3,7 @@ import GetFullAgentResult from '../../../serviceFactory/results/GetFullAgentResu
 import {
   TEST_ACCOUNT_AGENT,
   TEST_INVALID_AGENT,
+  TEST_INVALID_JSON_CONTENT,
   TEST_MBOX_AGENT,
   TEST_MBOXSHA1_AGENT,
   TEST_OPENID_AGENT,
@@ -12,7 +13,7 @@ import setup from '../utils/setup';
 import getFullAgent from './utils/getFullAgent';
 
 describe('expressPresenter.getFullAgent with non-existing model', () => {
-  setup();
+  const { supertest } = setup();
 
   const assertFullAgent = async (agent: any, resultOverrides: Partial<GetFullAgentResult>) => {
     const expectedResult: GetFullAgentResult = {
@@ -53,5 +54,14 @@ describe('expressPresenter.getFullAgent with non-existing model', () => {
 
   it('should throw warnings when using an invalid agent', async () => {
     await getFullAgent(TEST_INVALID_AGENT).expect(CLIENT_ERROR_400_HTTP_CODE);
+  });
+
+  it('should throw warnings when using invalid json in agent', async () => {
+    await supertest
+      .get('/xAPI/agents')
+      .query({
+        agent: TEST_INVALID_JSON_CONTENT,
+      })
+      .expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 });
