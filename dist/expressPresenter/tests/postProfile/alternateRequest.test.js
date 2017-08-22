@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var assertProfile_1 = require("../../../utils/assertProfile");
+var constants_1 = require("../../../utils/constants");
 var createObjectProfile_1 = require("../../../utils/createObjectProfile");
 var getTestProfile_1 = require("../../../utils/getTestProfile");
 var testValues_1 = require("../../../utils/testValues");
@@ -57,6 +58,7 @@ describe('expressPresenter.postProfile using the alternate request syntax', func
                     return [4 /*yield*/, supertest
                             .post('/xAPI/agents/profile')
                             .set('Content-Type', testValues_1.ALTERNATE_CONTENT_TYPE)
+                            .set('X-Experience-API-Version', constants_1.xapiHeaderVersion)
                             .query({
                             method: 'POST',
                         })
