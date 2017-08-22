@@ -1,4 +1,5 @@
 import assertDeleted from '../../../utils/assertDeleted';
+import { xapiHeaderVersion } from '../../../utils/constants';
 import createTextProfile from '../../../utils/createTextProfile';
 import {
   ALTERNATE_CONTENT_TYPE,
@@ -16,6 +17,7 @@ describe('expressPresenter.deleteProfile using the alternate request syntax', ()
     await supertest
       .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
+      .set('X-Experience-API-Version', xapiHeaderVersion)
       .query({ method: 'DELETE' })
       .send({
         agent: JSON.stringify(TEST_MBOX_AGENT),

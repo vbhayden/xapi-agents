@@ -1,3 +1,4 @@
+import { xapiHeaderVersion } from '../../../utils/constants';
 import {
   ALTERNATE_CONTENT_TYPE,
   TEST_MBOX_AGENT,
@@ -12,6 +13,7 @@ describe('expressPresenter.getProfiles using the alternate request syntax', () =
     await supertest
       .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
+      .set('X-Experience-API-Version', xapiHeaderVersion)
       .query({ method: 'GET' })
       .send({ agent: JSON.stringify(TEST_MBOX_AGENT) })
       .expect(OK_200_HTTP_CODE, []);

@@ -41,9 +41,12 @@ var InvalidMethod_1 = require("../../errors/InvalidMethod");
 var getAgent_1 = require("./getAgent");
 var getAlternateProfileWriteOpts_1 = require("./getAlternateProfileWriteOpts");
 var getClient_1 = require("./getClient");
+var getEtag_1 = require("./getEtag");
+var getHeader_1 = require("./getHeader");
 var getProfileFromService_1 = require("./getProfileFromService");
 var getProfileId_1 = require("./getProfileId");
 var getProfilesFromService_1 = require("./getProfilesFromService");
+var validateVersionHeader_1 = require("./validateVersionHeader");
 exports.default = function (_a) {
     var config = _a.config, method = _a.method, req = _a.req, res = _a.res;
     return __awaiter(_this, void 0, void 0, function () {
@@ -65,14 +68,16 @@ exports.default = function (_a) {
                 case 1: return [4 /*yield*/, getAlternateProfileWriteOpts_1.default(config, req)];
                 case 2:
                     opts = _b.sent();
+                    validateVersionHeader_1.default(getHeader_1.default(req, 'X-Experience-API-Version'));
                     return [4 /*yield*/, config.service.patchProfile(opts)];
                 case 3:
                     _b.sent();
                     res.status(204).send();
                     return [2 /*return*/];
-                case 4: return [4 /*yield*/, getClient_1.default(config, req.body.Authorization)];
+                case 4: return [4 /*yield*/, getClient_1.default(config, getHeader_1.default(req, 'Authorization'))];
                 case 5:
                     client = _b.sent();
+                    validateVersionHeader_1.default(getHeader_1.default(req, 'X-Experience-API-Version'));
                     agent = getAgent_1.default(req.body.agent);
                     if (!(req.body.profileId === undefined)) return [3 /*break*/, 7];
                     return [4 /*yield*/, getProfilesFromService_1.default({ config: config, res: res, agent: agent, client: client })];
@@ -88,15 +93,17 @@ exports.default = function (_a) {
                 case 9: return [4 /*yield*/, getAlternateProfileWriteOpts_1.default(config, req)];
                 case 10:
                     opts = _b.sent();
+                    validateVersionHeader_1.default(getHeader_1.default(req, 'X-Experience-API-Version'));
                     return [4 /*yield*/, config.service.overwriteProfile(opts)];
                 case 11:
                     _b.sent();
                     res.status(204).send();
                     return [2 /*return*/];
-                case 12: return [4 /*yield*/, getClient_1.default(config, req.body.Authorization)];
+                case 12: return [4 /*yield*/, getClient_1.default(config, getHeader_1.default(req, 'Authorization'))];
                 case 13:
                     client = _b.sent();
-                    ifMatch = req.body['If-Match'];
+                    validateVersionHeader_1.default(getHeader_1.default(req, 'X-Experience-API-Version'));
+                    ifMatch = getEtag_1.default(getHeader_1.default(req, 'If-Match', undefined));
                     profileId = getProfileId_1.default(req.body.profileId);
                     agent = getAgent_1.default(req.body.agent);
                     return [4 /*yield*/, config.service.deleteProfile({ agent: agent, client: client, profileId: profileId, ifMatch: ifMatch })];

@@ -6,9 +6,12 @@ import Config from '../Config';
 import getAgent from './getAgent';
 import getAlternateProfileWriteOpts from './getAlternateProfileWriteOpts';
 import getClient from './getClient';
+import getEtag from './getEtag';
+import getHeader from './getHeader';
 import getProfileFromService from './getProfileFromService';
 import getProfileId from './getProfileId';
 import getProfilesFromService from './getProfilesFromService';
+import validateVersionHeader from './validateVersionHeader';
 
 export interface Options {
   readonly config: Config;
@@ -25,12 +28,14 @@ export default async ({ config, method, req, res }: Options) => {
   switch (method.toUpperCase()) {
     case 'POST': {
       const opts = await getAlternateProfileWriteOpts(config, req);
+      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
       await config.service.patchProfile(opts);
       res.status(204).send();
       return;
     }
     case 'GET': {
-      const client = await getClient(config, req.body.Authorization);
+      const client = await getClient(config, getHeader(req, 'Authorization'));
+      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
       const agent = getAgent(req.body.agent);
 
       if (req.body.profileId === undefined) {
@@ -44,13 +49,15 @@ export default async ({ config, method, req, res }: Options) => {
     }
     case 'PUT': {
       const opts = await getAlternateProfileWriteOpts(config, req);
+      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
       await config.service.overwriteProfile(opts);
       res.status(204).send();
       return;
     }
     case 'DELETE': {
-      const client = await getClient(config, req.body.Authorization);
-      const ifMatch = req.body['If-Match'];
+      const client = await getClient(config, getHeader(req, 'Authorization'));
+      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
+      const ifMatch = getEtag(getHeader(req, 'If-Match', undefined));
       const profileId = getProfileId(req.body.profileId);
       const agent = getAgent(req.body.agent);
 
