@@ -41,16 +41,17 @@ var getAgent_1 = require("./getAgent");
 var getClient_1 = require("./getClient");
 var getContentType_1 = require("./getContentType");
 var getEtag_1 = require("./getEtag");
+var getHeader_1 = require("./getHeader");
 var getProfileId_1 = require("./getProfileId");
 exports.default = function (config, req) { return __awaiter(_this, void 0, void 0, function () {
     var client, ifMatch, ifNoneMatch, profileId, agent, contentType, content;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, getClient_1.default(config, req.body.Authorization)];
+            case 0: return [4 /*yield*/, getClient_1.default(config, getHeader_1.default(req, 'Authorization'))];
             case 1:
                 client = _a.sent();
-                ifMatch = getEtag_1.default(req.body['If-Match']);
-                ifNoneMatch = getEtag_1.default(req.body['If-None-Match']);
+                ifMatch = getEtag_1.default(getHeader_1.default(req, 'If-Match'));
+                ifNoneMatch = getEtag_1.default(getHeader_1.default(req, 'If-None-Match'));
                 profileId = getProfileId_1.default(req.body.profileId);
                 agent = getAgent_1.default(req.body.agent);
                 contentType = getContentType_1.default(req.body['Content-Type']);

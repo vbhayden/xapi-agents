@@ -1,4 +1,5 @@
 import { Test } from 'supertest';
+import { xapiHeaderVersion } from '../../../../utils/constants';
 import {
   JSON_CONTENT_TYPE,
   TEST_MBOX_AGENT,
@@ -15,6 +16,7 @@ export default (
   return supertest
     .post('/xAPI/agents/profile')
     .set('Content-Type', contentType)
+    .set('X-Experience-API-Version', xapiHeaderVersion)
     .query({
       agent: JSON.stringify(TEST_MBOX_AGENT),
       profileId: TEST_PROFILE_ID,

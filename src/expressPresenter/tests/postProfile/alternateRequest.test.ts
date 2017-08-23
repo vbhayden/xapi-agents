@@ -1,4 +1,5 @@
 import assertProfile from '../../../utils/assertProfile';
+import { xapiHeaderVersion } from '../../../utils/constants';
 import createObjectProfile from '../../../utils/createObjectProfile';
 import getTestProfile from '../../../utils/getTestProfile';
 import {
@@ -21,6 +22,7 @@ describe('expressPresenter.postProfile using the alternate request syntax', () =
     await supertest
       .post('/xAPI/agents/profile')
       .set('Content-Type', ALTERNATE_CONTENT_TYPE)
+      .set('X-Experience-API-Version', xapiHeaderVersion)
       .query({
         method: 'POST',
       })

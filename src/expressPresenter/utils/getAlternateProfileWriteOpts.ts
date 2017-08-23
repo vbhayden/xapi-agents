@@ -7,6 +7,7 @@ import getAgent from './getAgent';
 import getClient from './getClient';
 import getContentType from './getContentType';
 import getEtag from './getEtag';
+import getHeader from './getHeader';
 import getProfileId from './getProfileId';
 
 export interface Result {
@@ -20,9 +21,9 @@ export interface Result {
 }
 
 export default async (config: Config, req: Request): Promise<Result> => {
-  const client = await getClient(config, req.body.Authorization);
-  const ifMatch = getEtag(req.body['If-Match']);
-  const ifNoneMatch = getEtag(req.body['If-None-Match']);
+  const client = await getClient(config, getHeader(req, 'Authorization'));
+  const ifMatch = getEtag(getHeader(req, 'If-Match'));
+  const ifNoneMatch = getEtag(getHeader(req, 'If-None-Match'));
   const profileId = getProfileId(req.body.profileId);
   const agent = getAgent(req.body.agent);
   const contentType = getContentType(req.body['Content-Type']);
