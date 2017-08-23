@@ -17,6 +17,7 @@ exports.default = function (optsOverrides, content, contentType) {
     return supertest_1.default
         .put('/xAPI/agents/profile')
         .set('Content-Type', contentType)
+        .set('If-None-Match', '*')
         .query(__assign({ agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT), profileId: testValues_1.TEST_PROFILE_ID }, optsOverrides))
         .send(content);
 };

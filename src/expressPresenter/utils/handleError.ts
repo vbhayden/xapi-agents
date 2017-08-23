@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
+import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
 import { Warnings } from 'rulr';
@@ -11,6 +11,7 @@ import InvalidContentType from '../../errors/InvalidContentType';
 import InvalidMethod from '../../errors/InvalidMethod';
 import JsonSyntaxError from '../../errors/JsonSyntaxError';
 import MaxEtags from '../../errors/MaxEtags';
+import MissingEtags from '../../errors/MissingEtags';
 import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
 import { xapiHeaderVersion } from '../../utils/constants';
@@ -36,7 +37,11 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case JsonSyntaxError: {
+    case MissingEtags: {
+      const code = CLIENT_ERROR_400_HTTP_CODE;
+      const message = translator.missingEtagsError(err as MissingEtags);
+      return sendMessage({ res, code, errorId, message });
+    } case JsonSyntaxError: {
       const code = CLIENT_ERROR_400_HTTP_CODE;
       const message = translator.jsonSyntaxError(err as JsonSyntaxError);
       return sendMessage({ res, code, errorId, message });

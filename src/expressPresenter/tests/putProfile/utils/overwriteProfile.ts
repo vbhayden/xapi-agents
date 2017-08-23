@@ -15,6 +15,7 @@ export default (
   return supertest
     .put('/xAPI/agents/profile')
     .set('Content-Type', contentType)
+    .set('If-None-Match', '*')
     .query({
       agent: JSON.stringify(TEST_MBOX_AGENT),
       profileId: TEST_PROFILE_ID,

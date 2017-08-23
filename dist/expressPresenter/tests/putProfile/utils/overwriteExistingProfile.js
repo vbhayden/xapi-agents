@@ -51,6 +51,7 @@ exports.default = function (agent, content) {
                     getProfileResult = _a.sent();
                     return [4 /*yield*/, overwriteProfile_1.default({ agent: JSON.stringify(agent) }, content)
                             .set('If-Match', getProfileResult.etag)
+                            .unset('If-None-Match')
                             .expect(httpCodes_1.NO_CONTENT_204_HTTP_CODE)];
                 case 2:
                     _a.sent();

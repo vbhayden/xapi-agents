@@ -11,6 +11,7 @@ var InvalidContentType_1 = require("../../errors/InvalidContentType");
 var InvalidMethod_1 = require("../../errors/InvalidMethod");
 var JsonSyntaxError_1 = require("../../errors/JsonSyntaxError");
 var MaxEtags_1 = require("../../errors/MaxEtags");
+var MissingEtags_1 = require("../../errors/MissingEtags");
 var NonJsonObject_1 = require("../../errors/NonJsonObject");
 var constants_1 = require("../../utils/constants");
 var httpCodes_1 = require("./httpCodes");
@@ -25,6 +26,11 @@ exports.default = function (_a) {
         return sendMessage_1.default({ res: res, code: code, errorId: errorId, message: message });
     }
     switch (err.constructor) {
+        case MissingEtags_1.default: {
+            var code = httpCodes_1.CLIENT_ERROR_400_HTTP_CODE;
+            var message = translator.missingEtagsError(err);
+            return sendMessage_1.default({ res: res, code: code, errorId: errorId, message: message });
+        }
         case JsonSyntaxError_1.default: {
             var code = httpCodes_1.CLIENT_ERROR_400_HTTP_CODE;
             var message = translator.jsonSyntaxError(err);

@@ -41,6 +41,7 @@ var Conflict_1 = require("../../../errors/Conflict");
 var IfMatch_1 = require("../../../errors/IfMatch");
 var IfNoneMatch_1 = require("../../../errors/IfNoneMatch");
 var MaxEtags_1 = require("../../../errors/MaxEtags");
+var MissingEtags_1 = require("../../../errors/MissingEtags");
 var createTextProfile_1 = require("../../../utils/createTextProfile");
 var testValues_1 = require("../../../utils/testValues");
 var setup_1 = require("../utils/setup");
@@ -61,7 +62,7 @@ describe('overwriteProfile with etags', function () {
                         })];
                 case 2:
                     getProfileResult = _a.sent();
-                    return [4 /*yield*/, overwriteProfile_1.default({ ifMatch: getProfileResult.etag })];
+                    return [4 /*yield*/, overwriteProfile_1.default({ ifMatch: getProfileResult.etag, ifNoneMatch: undefined })];
                 case 3:
                     _a.sent();
                     return [2 /*return*/];
@@ -75,7 +76,7 @@ describe('overwriteProfile with etags', function () {
                 case 0: return [4 /*yield*/, createTextProfile_1.default()];
                 case 1:
                     _a.sent();
-                    promise = overwriteProfile_1.default({ ifMatch: 'incorrect_etag' });
+                    promise = overwriteProfile_1.default({ ifMatch: 'incorrect_etag', ifNoneMatch: undefined });
                     return [4 /*yield*/, assertError_1.default(IfMatch_1.default, promise)];
                 case 2:
                     _a.sent();
@@ -105,7 +106,7 @@ describe('overwriteProfile with etags', function () {
                 case 0: return [4 /*yield*/, createTextProfile_1.default()];
                 case 1:
                     _a.sent();
-                    promise = overwriteProfile_1.default();
+                    promise = overwriteProfile_1.default({ ifNoneMatch: undefined });
                     return [4 /*yield*/, assertError_1.default(Conflict_1.default, promise)];
                 case 2:
                     _a.sent();
@@ -123,6 +124,19 @@ describe('overwriteProfile with etags', function () {
                     promise = overwriteProfile_1.default({ ifMatch: 'incorrect_etag', ifNoneMatch: '*' });
                     return [4 /*yield*/, assertError_1.default(MaxEtags_1.default, promise)];
                 case 2:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should throw missing etags error when not using ifMatch and ifNoneMatch', function () { return __awaiter(_this, void 0, void 0, function () {
+        var promise;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    promise = overwriteProfile_1.default({ ifNoneMatch: undefined });
+                    return [4 /*yield*/, assertError_1.default(MissingEtags_1.default, promise)];
+                case 1:
                     _a.sent();
                     return [2 /*return*/];
             }

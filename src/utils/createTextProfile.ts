@@ -15,6 +15,7 @@ export default async (optsOverrides: Partial<OverwriteProfileOptions> = {}) => {
     client: TEST_CLIENT,
     content: stringToStream(TEST_CONTENT),
     contentType: TEXT_CONTENT_TYPE,
+    ifNoneMatch: '*',
     profileId: TEST_PROFILE_ID,
     ...optsOverrides,
   });

@@ -3,6 +3,7 @@ import Conflict from '../../../errors/Conflict';
 import IfMatch from '../../../errors/IfMatch';
 import IfNoneMatch from '../../../errors/IfNoneMatch';
 import MaxEtags from '../../../errors/MaxEtags';
+import MissingEtags from '../../../errors/MissingEtags';
 import createTextProfile from '../../../utils/createTextProfile';
 import {
   TEST_CLIENT,
@@ -22,12 +23,12 @@ describe('overwriteProfile with etags', () => {
       client: TEST_CLIENT,
       profileId: TEST_PROFILE_ID,
     });
-    await overwriteProfile({ ifMatch: getProfileResult.etag });
+    await overwriteProfile({ ifMatch: getProfileResult.etag, ifNoneMatch: undefined });
   });
 
   it('should throw precondition error when using an incorrect ifMatch', async () => {
     await createTextProfile();
-    const promise = overwriteProfile({ ifMatch: 'incorrect_etag' });
+    const promise = overwriteProfile({ ifMatch: 'incorrect_etag', ifNoneMatch: undefined });
     await assertError(IfMatch, promise);
   });
 
@@ -39,7 +40,7 @@ describe('overwriteProfile with etags', () => {
 
   it('should throw conflict error when not using ifMatch or ifNoneMatch', async () => {
     await createTextProfile();
-    const promise = overwriteProfile();
+    const promise = overwriteProfile({ ifNoneMatch: undefined });
     await assertError(Conflict, promise);
   });
 
@@ -47,5 +48,10 @@ describe('overwriteProfile with etags', () => {
     await createTextProfile();
     const promise = overwriteProfile({ ifMatch: 'incorrect_etag', ifNoneMatch: '*' });
     await assertError(MaxEtags, promise);
+  });
+
+  it('should throw missing etags error when not using ifMatch and ifNoneMatch', async () => {
+    const promise = overwriteProfile({ ifNoneMatch: undefined });
+    await assertError(MissingEtags, promise);
   });
 });

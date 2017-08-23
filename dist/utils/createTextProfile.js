@@ -52,7 +52,7 @@ exports.default = function (optsOverrides) {
     return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, testService_1.default.overwriteProfile(__assign({ agent: testValues_1.TEST_MBOX_AGENT, client: testValues_1.TEST_CLIENT, content: stringToStream(testValues_1.TEST_CONTENT), contentType: testValues_1.TEXT_CONTENT_TYPE, profileId: testValues_1.TEST_PROFILE_ID }, optsOverrides))];
+                case 0: return [4 /*yield*/, testService_1.default.overwriteProfile(__assign({ agent: testValues_1.TEST_MBOX_AGENT, client: testValues_1.TEST_CLIENT, content: stringToStream(testValues_1.TEST_CONTENT), contentType: testValues_1.TEXT_CONTENT_TYPE, ifNoneMatch: '*', profileId: testValues_1.TEST_PROFILE_ID }, optsOverrides))];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

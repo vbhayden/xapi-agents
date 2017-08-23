@@ -36,19 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var stringToStream = require("string-to-stream");
-var testService_1 = require("./testService");
-var testValues_1 = require("./testValues");
+var createTextProfile_1 = require("./createTextProfile");
 exports.default = function (client) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, testService_1.default.overwriteProfile({
-                    agent: testValues_1.TEST_MBOX_AGENT,
-                    client: client,
-                    content: stringToStream(testValues_1.TEST_CONTENT),
-                    contentType: testValues_1.TEXT_CONTENT_TYPE,
-                    profileId: testValues_1.TEST_PROFILE_ID,
-                })];
+            case 0: return [4 /*yield*/, createTextProfile_1.default({ client: client })];
             case 1:
                 _a.sent();
                 return [2 /*return*/];

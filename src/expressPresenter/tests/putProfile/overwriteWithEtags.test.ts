@@ -17,6 +17,7 @@ describe('expressPresenter.putProfile with etags', () => {
     const getProfileResult = await getTestProfile();
     await overwriteProfile()
       .set('If-Match', getProfileResult.etag)
+      .unset('If-None-Match')
       .expect(NO_CONTENT_204_HTTP_CODE);
   });
 
@@ -24,6 +25,7 @@ describe('expressPresenter.putProfile with etags', () => {
     await createTextProfile();
     await overwriteProfile()
       .set('If-Match', 'incorrect_etag')
+      .unset('If-None-Match')
       .expect(PRECONDITION_FAILED_412_HTTP_CODE);
   });
 
@@ -37,6 +39,7 @@ describe('expressPresenter.putProfile with etags', () => {
   it('should throw conflict error when not using ifMatch or ifNoneMatch', async () => {
     await createTextProfile();
     await overwriteProfile()
+      .unset('If-None-Match')
       .expect(CONFLICT_409_HTTP_CODE);
   });
 
@@ -45,6 +48,12 @@ describe('expressPresenter.putProfile with etags', () => {
     await overwriteProfile()
       .set('If-Match', 'incorrect_etag')
       .set('If-None-Match', '*')
+      .expect(CLIENT_ERROR_400_HTTP_CODE);
+  });
+
+  it('should throw missing etags error when not using ifMatch and ifNoneMatch', async () => {
+    await overwriteProfile()
+      .unset('If-None-Match')
       .expect(CLIENT_ERROR_400_HTTP_CODE);
   });
 });

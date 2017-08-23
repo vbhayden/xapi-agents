@@ -36,37 +36,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var assertProfile_1 = require("../../../utils/assertProfile");
-var testValues_1 = require("../../../utils/testValues");
-var httpCodes_1 = require("../../utils/httpCodes");
-var setup_1 = require("../utils/setup");
-describe('expressPresenter.putProfile using the alternate request syntax', function () {
-    var supertest = setup_1.default().supertest;
-    it('should create when using valid activity id', function () { return __awaiter(_this, void 0, void 0, function () {
+var mongodb_1 = require("mongodb");
+exports.default = function (config) {
+    return function (opts) { return __awaiter(_this, void 0, void 0, function () {
+        var collection, filter, document, hasProfile;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, supertest
-                        .post('/xAPI/agents/profile')
-                        .set('Content-Type', testValues_1.ALTERNATE_CONTENT_TYPE)
-                        .query({
-                        method: 'PUT',
-                    })
-                        .send({
-                        'Content-Type': testValues_1.TEXT_CONTENT_TYPE,
-                        'If-None-Match': '*',
-                        agent: JSON.stringify(testValues_1.TEST_MBOX_AGENT),
-                        content: testValues_1.TEST_CONTENT,
-                        profileId: testValues_1.TEST_PROFILE_ID,
-                    })
-                        .expect(httpCodes_1.NO_CONTENT_204_HTTP_CODE)];
+                case 0: return [4 /*yield*/, config.db];
                 case 1:
-                    _a.sent();
-                    return [4 /*yield*/, assertProfile_1.default(testValues_1.TEST_CONTENT)];
+                    collection = (_a.sent()).collection('activityProfiles');
+                    filter = {
+                        agent: opts.agent,
+                        lrs: new mongodb_1.ObjectID(opts.client.lrs_id),
+                        organisation: new mongodb_1.ObjectID(opts.client.organisation),
+                        profileId: opts.profileId,
+                    };
+                    return [4 /*yield*/, collection.findOne(filter, {
+                            fields: {
+                                _id: 0,
+                            },
+                        })];
                 case 2:
-                    _a.sent();
-                    return [2 /*return*/];
+                    document = _a.sent();
+                    hasProfile = document !== null && document !== undefined;
+                    return [2 /*return*/, { hasProfile: hasProfile }];
             }
         });
-    }); });
-});
-//# sourceMappingURL=alternateRequest.test.js.map
+    }); };
+};
+//# sourceMappingURL=hasProfile.js.map

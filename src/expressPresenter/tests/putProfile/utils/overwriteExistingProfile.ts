@@ -11,5 +11,6 @@ export default async (
   const getProfileResult = await getTestProfile({ agent });
   await overwriteProfile({ agent: JSON.stringify(agent) }, content)
     .set('If-Match', getProfileResult.etag)
+    .unset('If-None-Match')
     .expect(NO_CONTENT_204_HTTP_CODE);
 };

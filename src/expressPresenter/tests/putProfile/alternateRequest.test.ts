@@ -21,6 +21,7 @@ describe('expressPresenter.putProfile using the alternate request syntax', () =>
       })
       .send({
         'Content-Type': TEXT_CONTENT_TYPE,
+        'If-None-Match': '*',
         agent: JSON.stringify(TEST_MBOX_AGENT),
         content: TEST_CONTENT,
         profileId: TEST_PROFILE_ID,

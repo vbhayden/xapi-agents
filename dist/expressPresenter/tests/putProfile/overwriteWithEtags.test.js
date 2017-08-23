@@ -55,6 +55,7 @@ describe('expressPresenter.putProfile with etags', function () {
                     getProfileResult = _a.sent();
                     return [4 /*yield*/, overwriteProfile_1.default()
                             .set('If-Match', getProfileResult.etag)
+                            .unset('If-None-Match')
                             .expect(httpCodes_1.NO_CONTENT_204_HTTP_CODE)];
                 case 3:
                     _a.sent();
@@ -70,6 +71,7 @@ describe('expressPresenter.putProfile with etags', function () {
                     _a.sent();
                     return [4 /*yield*/, overwriteProfile_1.default()
                             .set('If-Match', 'incorrect_etag')
+                            .unset('If-None-Match')
                             .expect(httpCodes_1.PRECONDITION_FAILED_412_HTTP_CODE)];
                 case 2:
                     _a.sent();
@@ -99,6 +101,7 @@ describe('expressPresenter.putProfile with etags', function () {
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, overwriteProfile_1.default()
+                            .unset('If-None-Match')
                             .expect(httpCodes_1.CONFLICT_409_HTTP_CODE)];
                 case 2:
                     _a.sent();
@@ -117,6 +120,18 @@ describe('expressPresenter.putProfile with etags', function () {
                             .set('If-None-Match', '*')
                             .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
                 case 2:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should throw missing etags error when not using ifMatch and ifNoneMatch', function () { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, overwriteProfile_1.default()
+                        .unset('If-None-Match')
+                        .expect(httpCodes_1.CLIENT_ERROR_400_HTTP_CODE)];
+                case 1:
                     _a.sent();
                     return [2 /*return*/];
             }

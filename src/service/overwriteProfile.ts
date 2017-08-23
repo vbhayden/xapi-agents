@@ -1,4 +1,6 @@
 import * as streamToString from 'stream-to-string';
+import Conflict from '../errors/Conflict';
+import MissingEtags from '../errors/MissingEtags';
 import OverwriteProfileOptions from '../serviceFactory/options/OverwriteProfileOptions';
 import parseJson from '../utils/parseJson';
 import Config from './Config';
@@ -10,9 +12,22 @@ export default (config: Config) => {
   return async (opts: OverwriteProfileOptions) => {
     checkProfileWriteScopes(opts.client.scopes);
     validateAgent(opts.agent);
+    const etag = createEtag();
+
+    if (opts.ifMatch === undefined && opts.ifNoneMatch === undefined) {
+      const { hasProfile } = await config.repo.hasProfile({
+        agent: opts.agent,
+        client: opts.client,
+        profileId: opts.profileId,
+      });
+      if (hasProfile) {
+        throw new Conflict();
+      } else {
+        throw new MissingEtags();
+      }
+    }
 
     // Update or create Profile.
-    const etag = createEtag();
     const jsonContent = (
       opts.contentType === 'application/json'
       ? parseJson(await streamToString(opts.content), ['content'])

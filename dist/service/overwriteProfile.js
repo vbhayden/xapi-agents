@@ -37,29 +37,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var streamToString = require("stream-to-string");
+var Conflict_1 = require("../errors/Conflict");
+var MissingEtags_1 = require("../errors/MissingEtags");
 var parseJson_1 = require("../utils/parseJson");
 var checkProfileWriteScopes_1 = require("./utils/checkProfileWriteScopes");
 var createEtag_1 = require("./utils/createEtag");
 var validateAgent_1 = require("./utils/validateAgent");
 exports.default = function (config) {
     return function (opts) { return __awaiter(_this, void 0, void 0, function () {
-        var etag, jsonContent, _a, _b, overwriteProfileResult;
+        var etag, hasProfile, jsonContent, _a, _b, overwriteProfileResult;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
                     checkProfileWriteScopes_1.default(opts.client.scopes);
                     validateAgent_1.default(opts.agent);
                     etag = createEtag_1.default();
-                    if (!(opts.contentType === 'application/json')) return [3 /*break*/, 2];
+                    if (!(opts.ifMatch === undefined && opts.ifNoneMatch === undefined)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, config.repo.hasProfile({
+                            agent: opts.agent,
+                            client: opts.client,
+                            profileId: opts.profileId,
+                        })];
+                case 1:
+                    hasProfile = (_c.sent()).hasProfile;
+                    if (hasProfile) {
+                        throw new Conflict_1.default();
+                    }
+                    else {
+                        throw new MissingEtags_1.default();
+                    }
+                    _c.label = 2;
+                case 2:
+                    if (!(opts.contentType === 'application/json')) return [3 /*break*/, 4];
                     _b = parseJson_1.default;
                     return [4 /*yield*/, streamToString(opts.content)];
-                case 1:
-                    _a = _b.apply(void 0, [_c.sent(), ['content']]);
-                    return [3 /*break*/, 3];
-                case 2:
-                    _a = undefined;
-                    _c.label = 3;
                 case 3:
+                    _a = _b.apply(void 0, [_c.sent(), ['content']]);
+                    return [3 /*break*/, 5];
+                case 4:
+                    _a = undefined;
+                    _c.label = 5;
+                case 5:
                     jsonContent = (_a);
                     return [4 /*yield*/, config.repo.overwriteProfile({
                             agent: opts.agent,
@@ -71,17 +89,17 @@ exports.default = function (config) {
                             ifNoneMatch: opts.ifNoneMatch,
                             profileId: opts.profileId,
                         })];
-                case 4:
+                case 6:
                     overwriteProfileResult = _c.sent();
-                    if (!(opts.contentType !== 'application/json')) return [3 /*break*/, 6];
+                    if (!(opts.contentType !== 'application/json')) return [3 /*break*/, 8];
                     return [4 /*yield*/, config.repo.storeProfileContent({
                             content: opts.content,
                             key: overwriteProfileResult.id,
                         })];
-                case 5:
+                case 7:
                     _c.sent();
-                    _c.label = 6;
-                case 6: return [2 /*return*/];
+                    _c.label = 8;
+                case 8: return [2 /*return*/];
             }
         });
     }); };
