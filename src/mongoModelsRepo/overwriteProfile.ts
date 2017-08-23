@@ -1,7 +1,6 @@
 /* tslint:disable:max-file-line-count */
 import { isPlainObject } from 'lodash';
 import { ObjectID } from 'mongodb';
-import Conflict from '../errors/Conflict';
 import IfMatch from '../errors/IfMatch';
 import IfNoneMatch from '../errors/IfNoneMatch';
 import MaxEtags from '../errors/MaxEtags';
@@ -17,7 +16,6 @@ export default (config: Config) => {
     const collection = (await config.db).collection('activityProfiles');
     const checkIfMatch = opts.ifMatch !== undefined;
     const checkIfNoneMatch = opts.ifNoneMatch === '*';
-    const checkConflict = opts.ifMatch === undefined && opts.ifNoneMatch === undefined;
 
     if (checkIfMatch && checkIfNoneMatch) {
       throw new MaxEtags();
