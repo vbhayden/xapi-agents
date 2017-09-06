@@ -1,12 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -44,45 +36,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-/* tslint:disable:no-let */
-var lodash_1 = require("lodash");
-var NonJsonObject_1 = require("../errors/NonJsonObject");
-var checkEtag_1 = require("./utils/checkEtag");
-var checkMaxEtags_1 = require("./utils/checkMaxEtags");
-var createProfile_1 = require("./utils/createProfile");
-var matchUniqueProfile_1 = require("./utils/matchUniqueProfile");
-exports.default = function (config) {
-    return function (opts) { return __awaiter(_this, void 0, void 0, function () {
-        var isExistingProfile, agent, profileId, client, ifMatch, ifNoneMatch;
+var assert = require("assert");
+var getFileExtension_1 = require("../utils/getFileExtension");
+describe('getFileExtension', function () {
+    it('should return json on application/json', function () { return __awaiter(_this, void 0, void 0, function () {
+        var ext;
         return __generator(this, function (_a) {
-            isExistingProfile = false;
-            agent = opts.agent, profileId = opts.profileId, client = opts.client, ifMatch = opts.ifMatch, ifNoneMatch = opts.ifNoneMatch;
-            checkMaxEtags_1.default(ifMatch, ifNoneMatch);
-            config.state.agentProfiles = config.state.agentProfiles.map(function (profile) {
-                var isMatch = matchUniqueProfile_1.default({ client: client, agent: agent, profile: profile, profileId: profileId });
-                var isJson = (isMatch &&
-                    profile.contentType === 'application/json' &&
-                    lodash_1.isPlainObject(profile.content));
-                if (!isMatch) {
-                    return profile;
-                }
-                checkEtag_1.default({ profile: profile, ifMatch: ifMatch, ifNoneMatch: ifNoneMatch });
-                isExistingProfile = true;
-                if (!isJson) {
-                    throw new NonJsonObject_1.default();
-                }
-                return __assign({}, profile, { 
-                    // Merges top-level properties in content.
-                    content: __assign({}, profile.content, opts.content), etag: opts.etag, extension: 'json', 
-                    // Updates updatedAt time.
-                    updatedAt: new Date() });
-            });
-            // Creates the Profile if the profile doesn't already exist.
-            if (!isExistingProfile) {
-                createProfile_1.default(config, opts);
-            }
+            ext = getFileExtension_1.default('application/json');
+            assert.equal(ext, 'json');
             return [2 /*return*/];
         });
-    }); };
-};
-//# sourceMappingURL=patchProfile.js.map
+    }); });
+    it('should return known extension', function () { return __awaiter(_this, void 0, void 0, function () {
+        var ext;
+        return __generator(this, function (_a) {
+            ext = getFileExtension_1.default('text/plain');
+            assert.equal(ext, 'txt');
+            return [2 /*return*/];
+        });
+    }); });
+    it('should return `bin` on unknown extension', function () { return __awaiter(_this, void 0, void 0, function () {
+        var ext;
+        return __generator(this, function (_a) {
+            ext = getFileExtension_1.default('ht2/binary');
+            assert.equal(ext, 'bin');
+            return [2 /*return*/];
+        });
+    }); });
+});
+//# sourceMappingURL=getFileExtension.test.js.map
