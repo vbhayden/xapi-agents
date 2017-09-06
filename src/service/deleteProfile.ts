@@ -21,7 +21,8 @@ export default (config: Config) => {
     }
 
     await config.repo.deleteProfileContent({
-      key: deleteResult.id,
+      key: `${deleteResult.id}.${deleteResult.extension}`,
+      lrs_id: opts.client.lrs_id,
     });
   };
 };

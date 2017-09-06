@@ -63,16 +63,16 @@ exports.default = function (config) {
                 existingId = profile.id;
                 return __assign({}, profile, { 
                     // Overwrites the content and contentType.
-                    content: opts.content, contentType: opts.contentType, etag: opts.etag, 
+                    content: opts.content, contentType: opts.contentType, etag: opts.etag, extension: opts.extension, 
                     // Updates updatedAt time.
                     updatedAt: new Date() });
             });
             // Creates the Profile if the profile doesn't already exist.
             if (existingId === undefined) {
                 createdProfile = createProfile_1.default(config, opts);
-                return [2 /*return*/, { id: createdProfile.id }];
+                return [2 /*return*/, { id: createdProfile.id, extension: createdProfile.extension }];
             }
-            return [2 /*return*/, { id: existingId }];
+            return [2 /*return*/, { id: existingId, extension: '' }];
         });
     }); };
 };

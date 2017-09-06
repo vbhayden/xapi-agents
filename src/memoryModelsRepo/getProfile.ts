@@ -21,7 +21,7 @@ export default (config: Config) => {
       throw new NoModel('Agent Profile');
     }
 
-    const { id, content, contentType, updatedAt, etag } = matchingProfiles[0];
-    return { id, content, contentType, updatedAt, etag };
+    const { id, content, contentType, updatedAt, etag, extension } = matchingProfiles[0];
+    return { id, content, contentType, updatedAt, etag, extension };
   };
 };

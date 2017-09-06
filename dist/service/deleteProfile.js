@@ -59,7 +59,8 @@ exports.default = function (config) {
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, config.repo.deleteProfileContent({
-                            key: deleteResult.id,
+                            key: deleteResult.id + "." + deleteResult.extension,
+                            lrs_id: opts.client.lrs_id,
                         })];
                 case 2:
                     _a.sent();
