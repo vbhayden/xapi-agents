@@ -1,6 +1,6 @@
 {
   "name": "xapi-agents",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A server for xAPI activities",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -25,7 +25,8 @@
     "cover-mongo": "nyc --lines 100 --check-coverage --exclude '(dist/fetchAuthRepo|dist/memoryModelsRepo|dist/s3StorageRepo|dist/config.js)' npm run test-mongo",
     "clean": "rm -rf dist",
     "lint": "./node_modules/tslint/bin/tslint -p ./tsconfig.json",
-    "duplication": "./node_modules/jscpd/bin/jscpd"
+    "duplication": "./node_modules/jscpd/bin/jscpd",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "config": {
     "commitizen": {
@@ -85,6 +86,7 @@
     "tslint": "^5.5.0",
     "tslint-consistent-codestyle": "^1.6.0",
     "tslint-immutable": "^4.0.2",
-    "typescript": "^2.5.1"
+    "typescript": "^2.5.1",
+    "semantic-release": "^8.0.3"
   }
 }
