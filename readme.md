@@ -1,4 +1,6 @@
 # xAPI Agents
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/LearningLocker/xapi-agents.svg)](https://greenkeeper.io/)
 > A server for xAPI agents
 
 [![Build Status](https://travis-ci.org/LearningLocker/xapi-agents.svg?branch=master)](https://travis-ci.org/LearningLocker/xapi-agents)
