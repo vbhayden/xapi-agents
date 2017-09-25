@@ -1,7 +1,7 @@
 {
   "name": "xapi-agents",
   "version": "0.0.0-development",
-  "description": "A server for xAPI activities",
+  "description": "A server for xAPI agents",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "GPL-3.0",
