@@ -1,6 +1,5 @@
 # xAPI Agents
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/LearningLocker/xapi-agents.svg)](https://greenkeeper.io/)
 > A server for xAPI agents
 
 [![NPM Package Version](https://badge.fury.io/js/xapi-agents.svg)](https://www.npmjs.com/package/xapi-agents)
