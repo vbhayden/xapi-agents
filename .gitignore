@@ -7,3 +7,5 @@ storage
 .nyc_output
 .vscode
 *.http
+coverage
+dist
