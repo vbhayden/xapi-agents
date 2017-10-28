@@ -20,7 +20,7 @@
     "clean": "rm -rf dist",
     "lint": "./node_modules/tslint/bin/tslint -p ./tsconfig.json",
     "duplication": "./node_modules/jscpd/bin/jscpd",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "start": "node dist/index.js",
     "migrate": "node dist/migrate.js",
     "rollback": "node dist/rollback.js",
