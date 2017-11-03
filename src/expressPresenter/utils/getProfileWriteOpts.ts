@@ -3,6 +3,7 @@ import { isString } from 'lodash';
 import * as stringToStream from 'string-to-stream';
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
+import { jsonContentType } from '../../utils/constants';
 import Config from '../Config';
 import getAgent from './getAgent';
 import getClient from './getClient';
@@ -11,7 +12,7 @@ import getEtag from './getEtag';
 import getProfileId from './getProfileId';
 
 const getContent = (req: Request, contentType: string) => {
-  if (contentType === 'application/json') {
+  if (contentType === jsonContentType) {
     return stringToStream(JSON.stringify(req.body));
   }
   /* istanbul ignore next - superagent always streams content */

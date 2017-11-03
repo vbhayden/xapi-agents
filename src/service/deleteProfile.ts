@@ -1,4 +1,5 @@
 import DeleteProfileOptions from '../serviceFactory/options/DeleteProfileOptions';
+import { jsonContentType } from '../utils/constants';
 import Config from './Config';
 import checkProfileWriteScopes from './utils/checkProfileWriteScopes';
 import validateAgent from './utils/validateAgent';
@@ -16,7 +17,7 @@ export default (config: Config) => {
       profileId: opts.profileId,
     });
 
-    if (deleteResult.contentType === 'application/json') {
+    if (deleteResult.contentType === jsonContentType) {
       return;
     }
 
