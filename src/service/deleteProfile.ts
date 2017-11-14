@@ -1,3 +1,4 @@
+import NoModel from 'jscommons/dist/errors/NoModel';
 import DeleteProfileOptions from '../serviceFactory/options/DeleteProfileOptions';
 import { jsonContentType } from '../utils/constants';
 import Config from './Config';
@@ -10,20 +11,28 @@ export default (config: Config) => {
     checkProfileWriteScopes(client.scopes);
     validateAgent(opts.agent);
 
-    const deleteResult = await config.repo.deleteProfile({
-      agent: opts.agent,
-      client,
-      ifMatch: opts.ifMatch,
-      profileId: opts.profileId,
-    });
+    try {
+      const deleteResult = await config.repo.deleteProfile({
+        agent: opts.agent,
+        client,
+        ifMatch: opts.ifMatch,
+        profileId: opts.profileId,
+      });
 
-    if (deleteResult.contentType === jsonContentType) {
-      return;
+      if (deleteResult.contentType === jsonContentType) {
+        return;
+      }
+
+      await config.repo.deleteProfileContent({
+        key: `${deleteResult.id}.${deleteResult.extension}`,
+        lrs_id: opts.client.lrs_id,
+      });
+    } catch (err) {
+      if (err instanceof NoModel) {
+        return;
+      }
+      /* istanbul ignore next */
+      throw err;
     }
-
-    await config.repo.deleteProfileContent({
-      key: `${deleteResult.id}.${deleteResult.extension}`,
-      lrs_id: opts.client.lrs_id,
-    });
   };
 };

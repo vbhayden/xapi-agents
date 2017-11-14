@@ -16,7 +16,7 @@ import {
 } from '../../../utils/testValues';
 import setup from '../utils/setup';
 
-describe('getProfile with existing state', () => {
+describe('getProfile with existing profile', () => {
   setup();
 
   const assertGetProfile = async (

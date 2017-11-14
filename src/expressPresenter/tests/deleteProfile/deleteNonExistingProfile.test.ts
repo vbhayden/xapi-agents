@@ -1,13 +1,13 @@
 import { TEST_INVALID_AGENT, TEST_INVALID_JSON_CONTENT } from '../../../utils/testValues';
-import { CLIENT_ERROR_400_HTTP_CODE, NOT_FOUND_404_HTTP_CODE } from '../../utils/httpCodes';
+import { CLIENT_ERROR_400_HTTP_CODE, NO_CONTENT_204_HTTP_CODE } from '../../utils/httpCodes';
 import setup from '../utils/setup';
 import deleteProfile from './utils/deleteProfile';
 
 describe('expressPresenter.deleteProfile with non-existing state', () => {
   setup();
 
-  it('should error when deleting', async () => {
-    await deleteProfile().expect(NOT_FOUND_404_HTTP_CODE);
+  it('should not error when deleting', async () => {
+    await deleteProfile().expect(NO_CONTENT_204_HTTP_CODE);
   });
 
   it('should throw warnings when using an invalid agent', async () => {
