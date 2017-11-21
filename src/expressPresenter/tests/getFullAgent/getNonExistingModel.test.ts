@@ -1,6 +1,6 @@
 import Account from '../../../models/Account';
 import GetFullAgentResult from '../../../serviceFactory/results/GetFullAgentResult';
-import { xapiHeaderVersion } from '../../../utils/constants';
+import { route, xapiHeaderVersion } from '../../../utils/constants';
 import {
   TEST_ACCOUNT_AGENT,
   TEST_INVALID_AGENT,
@@ -59,7 +59,7 @@ describe('expressPresenter.getFullAgent with non-existing model', () => {
 
   it('should throw warnings when using invalid json in agent', async () => {
     await supertest
-      .get('/xAPI/agents')
+      .get(route)
       .set('X-Experience-API-Version', xapiHeaderVersion)
       .query({
         agent: TEST_INVALID_JSON_CONTENT,

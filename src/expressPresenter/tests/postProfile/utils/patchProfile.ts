@@ -1,5 +1,5 @@
 import { Test } from 'supertest';
-import { xapiHeaderVersion } from '../../../../utils/constants';
+import { route, xapiHeaderVersion } from '../../../../utils/constants';
 import {
   JSON_CONTENT_TYPE,
   TEST_MBOX_AGENT,
@@ -14,7 +14,7 @@ export default (
   contentType: string = JSON_CONTENT_TYPE,
 ): Test => {
   return supertest
-    .post('/xAPI/agents/profile')
+    .post(`${route}/profile`)
     .set('Content-Type', contentType)
     .set('X-Experience-API-Version', xapiHeaderVersion)
     .query({

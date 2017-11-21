@@ -1,5 +1,5 @@
 import { Test } from 'supertest';
-import { xapiHeaderVersion } from '../../../../utils/constants';
+import { route, xapiHeaderVersion } from '../../../../utils/constants';
 import { TEST_MBOX_AGENT, TEST_PROFILE_ID } from '../../../../utils/testValues';
 import supertest from '../../utils/supertest';
 
@@ -10,7 +10,7 @@ const options = {
 
 export default (optsOverrides: object = {}): Test => {
   return supertest
-    .delete('/xAPI/agents/profile')
+    .delete(`${route}/profile`)
     .set('X-Experience-API-Version', xapiHeaderVersion)
     .query({
       ...options,
