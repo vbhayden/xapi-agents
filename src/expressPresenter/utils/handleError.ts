@@ -8,7 +8,6 @@ import { Warnings } from 'rulr';
 import Conflict from '../../errors/Conflict';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
-import InvalidContentType from '../../errors/InvalidContentType';
 import InvalidMethod from '../../errors/InvalidMethod';
 import JsonSyntaxError from '../../errors/JsonSyntaxError';
 import MaxEtags from '../../errors/MaxEtags';
@@ -44,12 +43,6 @@ export default ({ config, errorId, res, err }: Options): Response => {
   if (err instanceof JsonSyntaxError) {
     const code = CLIENT_ERROR_400_HTTP_CODE;
     const message = translator.jsonSyntaxError(err);
-    logError(message);
-    return sendMessage({ res, code, errorId, message });
-  }
-  if (err instanceof InvalidContentType) {
-    const code = CLIENT_ERROR_400_HTTP_CODE;
-    const message = translator.invalidContentTypeError(err);
     logError(message);
     return sendMessage({ res, code, errorId, message });
   }

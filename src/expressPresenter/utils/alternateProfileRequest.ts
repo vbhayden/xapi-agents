@@ -1,18 +1,14 @@
-/* tslint:disable:no-magic-numbers */
 import { Request, Response } from 'express';
-import InvalidContentType from '../../errors/InvalidContentType';
+import { get, mapKeys } from 'lodash';
+import { parse as parseQueryString } from 'query-string';
+import * as streamToString from 'stream-to-string';
+import * as stringToStream from 'string-to-stream';
 import InvalidMethod from '../../errors/InvalidMethod';
 import Config from '../Config';
-import { alternateContentTypePattern } from './contentTypePatterns';
-import getAgent from './getAgent';
-import getAlternateProfileWriteOpts from './getAlternateProfileWriteOpts';
-import getClient from './getClient';
-import getEtag from './getEtag';
-import getHeader from './getHeader';
-import getProfileFromService from './getProfileFromService';
-import getProfileId from './getProfileId';
-import getProfilesFromService from './getProfilesFromService';
-import validateVersionHeader from './validateVersionHeader';
+import deleteProfileWithService from './deleteProfileWithService';
+import getWithService from './getWithService';
+import overwriteProfileWithService from './overwriteProfileWithService';
+import patchProfileWithService from './patchProfileWithService';
 
 export interface Options {
   readonly config: Config;
@@ -21,51 +17,43 @@ export interface Options {
   readonly res: Response;
 }
 
-export default async ({ config, method, req, res }: Options) => {
-  const contentType = req.header('Content-Type');
-  if (contentType === undefined || !alternateContentTypePattern.test(contentType)) {
-    throw new InvalidContentType(contentType);
-  }
+const getQuery = async (stream: NodeJS.ReadableStream) => {
+  const body = await streamToString(stream);
+  const decodedBody = parseQueryString(body);
+  return decodedBody;
+};
 
-  switch (method.toUpperCase()) {
+const getHeaders = (bodyParams: any, req: Request) => {
+  const reqHeaders = req.headers;
+  const lowerCaseBodyParams = mapKeys(bodyParams, (_value, key: string) => {
+    return key.toLowerCase();
+  });
+  return { ...reqHeaders, ...lowerCaseBodyParams };
+};
+
+export default async ({ config, method, req, res }: Options) => {
+  switch (method) {
     case 'POST': {
-      const opts = await getAlternateProfileWriteOpts(config, req);
-      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
-      await config.service.patchProfile(opts);
-      res.status(204).send();
-      return;
+      const query = await getQuery(req);
+      const headers = getHeaders(query, req);
+      const content = stringToStream(get(query, 'content', ''));
+      return patchProfileWithService({ query, headers, content, config, res });
     }
     case 'GET': {
-      const client = await getClient(config, getHeader(req, 'Authorization'));
-      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
-      const agent = getAgent(req.body.agent);
-
-      if (req.body.profileId === undefined) {
-        await getProfilesFromService({ config, res, agent, client });
-        return;
-      } else {
-        const profileId = req.body.profileId;
-        await getProfileFromService({ config, res, agent, client, profileId });
-        return;
-      }
+      const query = await getQuery(req);
+      const headers = getHeaders(query, req);
+      return getWithService({ config, headers, query, res });
     }
     case 'PUT': {
-      const opts = await getAlternateProfileWriteOpts(config, req);
-      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
-      await config.service.overwriteProfile(opts);
-      res.status(204).send();
-      return;
+      const query = await getQuery(req);
+      const headers = getHeaders(query, req);
+      const content = stringToStream(get(query, 'content', ''));
+      return overwriteProfileWithService({ query, headers, content, config, res });
     }
     case 'DELETE': {
-      const client = await getClient(config, getHeader(req, 'Authorization'));
-      validateVersionHeader(getHeader(req, 'X-Experience-API-Version'));
-      const ifMatch = getEtag(getHeader(req, 'If-Match', undefined));
-      const profileId = getProfileId(req.body.profileId);
-      const agent = getAgent(req.body.agent);
-
-      await config.service.deleteProfile({ agent, client, profileId, ifMatch });
-      res.status(204).send();
-      return;
+      const query = await getQuery(req);
+      const headers = getHeaders(query, req);
+      return deleteProfileWithService({ config, headers, query, res });
     }
     default: {
       throw new InvalidMethod(method);
