@@ -30,5 +30,5 @@ To install all of Learning Locker, see the [installation documentation](http://d
 You can use the steps below to install and run the xAPI agents service.
 
 - Create a ".env" file using the ".env.example" file in this Github repository.
-- Pull the image from DockerHub `docker pull learninglocker/xapi-agents:master`.
-- Run the image in a container `docker run -d -p 8080:80 --env-file .env learninglocker/xapi-agents:master`.
+- Pull the image from DockerHub `docker pull learninglocker/xapi-agents:latest`.
+- Run the image in a container `docker run -d -p 8080:80 --env-file .env learninglocker/xapi-agents:latest`.
