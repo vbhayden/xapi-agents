@@ -1,9 +1,11 @@
 {
   "extends": [
-    "./node_modules/jscommons/tslint.json"
+    "./node_modules/@ht2-labs/typescript-project/configs/tslint.json"
   ],
   "rules": {
-    "match-default-export-name": false,
-    "linebreak-style": [false]
+    "linebreak-style": [
+      false,
+      "LF"
+    ]
   }
 }
