@@ -11,6 +11,7 @@ import patchProfile from './patchProfile';
 
 export default (config: Config): Service => {
   return {
+    ...commonService(config),
     deleteProfile: deleteProfile(config),
     getClient: getClient(config),
     getFullAgent: getFullAgent(config),
@@ -18,7 +19,5 @@ export default (config: Config): Service => {
     getProfiles: getProfiles(config),
     overwriteProfile: overwriteProfile(config),
     patchProfile: patchProfile(config),
-
-    ...commonService(config),
   };
 };
