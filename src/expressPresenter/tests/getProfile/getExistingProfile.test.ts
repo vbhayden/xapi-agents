@@ -20,6 +20,27 @@ describe('expressPresenter.getProfile with existing state', () => {
     await getProfile().expect(OK_200_HTTP_CODE, TEST_CONTENT);
   });
 
+  it('should get when agent properties are in a different order', async () => {
+    // tslint:disable:object-literal-sort-keys
+    const creationAgent = {
+      objectType: 'Agent',
+      account: {
+        name: 'steely.eyed',
+        homePage: 'http://missile.man',
+      },
+    };
+    const retrievalAgent = JSON.stringify({
+      objectType: 'Agent',
+      account: {
+        homePage: 'http://missile.man',
+        name: 'steely.eyed',
+      },
+    });
+    // tslint:enable:object-literal-sort-keys
+    await createTextProfile({ agent: creationAgent });
+    await getProfile({ agent: retrievalAgent }).expect(OK_200_HTTP_CODE, TEST_CONTENT);
+  });
+
   it('should get when getting json', async () => {
     await createJsonProfile();
     await getProfile().expect(OK_200_HTTP_CODE, JSON.parse(TEST_JSON_CONTENT));

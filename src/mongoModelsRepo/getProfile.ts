@@ -1,23 +1,15 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { defaultTo } from 'lodash';
-import { ObjectID } from 'mongodb';
 import GetProfileOptions from '../repoFactory/options/GetProfileOptions';
 import GetProfileResult from '../repoFactory/results/GetProfileResult';
 import Config from './Config';
 import { COLLECTION_NAME } from './utils/constants';
+import getProfileFilter from './utils/getProfileFilter';
 
 export default (config: Config) => {
   return async (opts: GetProfileOptions): Promise<GetProfileResult> => {
     const collection = (await config.db()).collection(COLLECTION_NAME);
-
-    const filter = {
-      agent: opts.agent,
-      lrs: new ObjectID(opts.client.lrs_id),
-      organisation: new ObjectID(opts.client.organisation),
-      profileId: opts.profileId,
-    };
-
-    // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#findOne
+    const filter = getProfileFilter(opts);
     const document = await collection.findOne(filter);
 
     if (document === null || document === undefined) {
