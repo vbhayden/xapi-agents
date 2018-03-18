@@ -95,7 +95,7 @@
     "nyc": "11.6.0",
     "supertest": "3.0.0",
     "tslint": "5.9.1",
-    "tslint-consistent-codestyle": "1.12.0",
+    "tslint-consistent-codestyle": "1.12.1",
     "tslint-immutable": "4.5.2",
     "typescript": "2.7.2"
   },
