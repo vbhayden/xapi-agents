@@ -1,7 +1,7 @@
+import { NO_CONTENT } from 'http-status-codes';
 import Agent from '../../../../models/Agent';
 import getTestProfile from '../../../../utils/getTestProfile';
 import { TEST_CONTENT } from '../../../../utils/testValues';
-import { NO_CONTENT_204_HTTP_CODE } from '../../../utils/httpCodes';
 import overwriteProfile from './overwriteProfile';
 
 export default async (
@@ -12,5 +12,5 @@ export default async (
   await overwriteProfile({ agent: JSON.stringify(agent) }, content)
     .set('If-Match', getProfileResult.etag)
     .unset('If-None-Match')
-    .expect(NO_CONTENT_204_HTTP_CODE);
+    .expect(NO_CONTENT);
 };

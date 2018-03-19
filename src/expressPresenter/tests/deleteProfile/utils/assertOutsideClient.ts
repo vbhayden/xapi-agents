@@ -1,9 +1,9 @@
+import { NO_CONTENT } from 'http-status-codes';
 import ClientModel from '../../../../models/ClientModel';
 import assertProfile from '../../../../utils/assertProfile';
-import { NO_CONTENT_204_HTTP_CODE } from '../../../utils/httpCodes';
 import deleteProfile from './deleteProfile';
 
 export default async (client: ClientModel, content: string) => {
-  await deleteProfile().expect(NO_CONTENT_204_HTTP_CODE);
+  await deleteProfile().expect(NO_CONTENT);
   await assertProfile(content, { client });
 };

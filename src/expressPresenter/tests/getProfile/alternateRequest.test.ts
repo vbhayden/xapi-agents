@@ -1,3 +1,4 @@
+import { OK } from 'http-status-codes';
 import { route, xapiHeaderVersion } from '../../../utils/constants';
 import createTextProfile from '../../../utils/createTextProfile';
 import {
@@ -6,7 +7,6 @@ import {
   TEST_MBOX_AGENT,
   TEST_PROFILE_ID,
 } from '../../../utils/testValues';
-import { OK_200_HTTP_CODE } from '../../utils/httpCodes';
 import setup from '../utils/setup';
 
 describe('expressPresenter.getProfile using the alternate request syntax', () => {
@@ -23,6 +23,6 @@ describe('expressPresenter.getProfile using the alternate request syntax', () =>
         agent: JSON.stringify(TEST_MBOX_AGENT),
         profileId: TEST_PROFILE_ID,
       })
-      .expect(OK_200_HTTP_CODE, TEST_CONTENT);
+      .expect(OK, TEST_CONTENT);
   });
 });
