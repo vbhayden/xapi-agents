@@ -1,7 +1,7 @@
+import { NO_CONTENT } from 'http-status-codes';
 import Agent from '../../../../models/Agent';
 import getTestProfile from '../../../../utils/getTestProfile';
 import { TEST_OBJECT_CONTENT } from '../../../../utils/testValues';
-import { NO_CONTENT_204_HTTP_CODE } from '../../../utils/httpCodes';
 import patchProfile from './patchProfile';
 
 export default async (
@@ -11,5 +11,5 @@ export default async (
   const getProfileResult = await getTestProfile({ agent });
   await patchProfile({ agent: JSON.stringify(agent) }, content)
     .set('If-Match', getProfileResult.etag)
-    .expect(NO_CONTENT_204_HTTP_CODE);
+    .expect(NO_CONTENT);
 };

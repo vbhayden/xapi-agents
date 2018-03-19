@@ -1,3 +1,4 @@
+import { OK } from 'http-status-codes';
 import createTextProfile from '../../../utils/createTextProfile';
 import {
   TEST_ACCOUNT_AGENT,
@@ -6,7 +7,6 @@ import {
   TEST_OPENID_AGENT,
   TEST_PROFILE_ID,
 } from '../../../utils/testValues';
-import { OK_200_HTTP_CODE } from '../../utils/httpCodes';
 import setup from '../utils/setup';
 import getProfiles from './utils/getProfiles';
 
@@ -15,30 +15,30 @@ describe('expressPresenter.getProfiles with existing model', () => {
 
   it('should return profile ids when getting a existing model', async () => {
     await createTextProfile();
-    await getProfiles().expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+    await getProfiles().expect(OK, [TEST_PROFILE_ID]);
   });
 
   it('should return profile ids when using an mbox', async () => {
     await createTextProfile({ agent: TEST_MBOX_AGENT });
     await getProfiles({ agent: JSON.stringify(TEST_MBOX_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+      .expect(OK, [TEST_PROFILE_ID]);
   });
 
   it('should return profile ids when using an mbox_sha1sum', async () => {
     await createTextProfile({ agent: TEST_MBOXSHA1_AGENT });
     await getProfiles({ agent: JSON.stringify(TEST_MBOXSHA1_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+      .expect(OK, [TEST_PROFILE_ID]);
   });
 
   it('should return profile ids when using an openid', async () => {
     await createTextProfile({ agent: TEST_OPENID_AGENT });
     await getProfiles({ agent: JSON.stringify(TEST_OPENID_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+      .expect(OK, [TEST_PROFILE_ID]);
   });
 
   it('should return profile ids when using an account', async () => {
     await createTextProfile({ agent: TEST_ACCOUNT_AGENT });
     await getProfiles({ agent: JSON.stringify(TEST_ACCOUNT_AGENT) })
-      .expect(OK_200_HTTP_CODE, [TEST_PROFILE_ID]);
+      .expect(OK, [TEST_PROFILE_ID]);
   });
 });

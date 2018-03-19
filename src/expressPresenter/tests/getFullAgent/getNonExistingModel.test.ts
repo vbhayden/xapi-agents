@@ -1,3 +1,4 @@
+import { BAD_REQUEST, OK } from 'http-status-codes';
 import Account from '../../../models/Account';
 import GetFullAgentResult from '../../../serviceFactory/results/GetFullAgentResult';
 import { route, xapiHeaderVersion } from '../../../utils/constants';
@@ -9,7 +10,6 @@ import {
   TEST_MBOXSHA1_AGENT,
   TEST_OPENID_AGENT,
 } from '../../../utils/testValues';
-import { CLIENT_ERROR_400_HTTP_CODE, OK_200_HTTP_CODE } from '../../utils/httpCodes';
 import setup from '../utils/setup';
 import getFullAgent from './utils/getFullAgent';
 
@@ -26,7 +26,7 @@ describe('expressPresenter.getFullAgent with non-existing model', () => {
       openid: [],
       ...resultOverrides,
     };
-    await getFullAgent(agent).expect(OK_200_HTTP_CODE, expectedResult);
+    await getFullAgent(agent).expect(OK, expectedResult);
   };
 
   it('should return the agent when using mbox', async () => {
@@ -54,7 +54,7 @@ describe('expressPresenter.getFullAgent with non-existing model', () => {
   });
 
   it('should throw warnings when using an invalid agent', async () => {
-    await getFullAgent(TEST_INVALID_AGENT).expect(CLIENT_ERROR_400_HTTP_CODE);
+    await getFullAgent(TEST_INVALID_AGENT).expect(BAD_REQUEST);
   });
 
   it('should throw warnings when using invalid json in agent', async () => {
@@ -64,6 +64,6 @@ describe('expressPresenter.getFullAgent with non-existing model', () => {
       .query({
         agent: TEST_INVALID_JSON_CONTENT,
       })
-      .expect(CLIENT_ERROR_400_HTTP_CODE);
+      .expect(BAD_REQUEST);
   });
 });
