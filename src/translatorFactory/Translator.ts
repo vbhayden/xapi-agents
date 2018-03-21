@@ -9,6 +9,7 @@ import JsonSyntaxError from '../errors/JsonSyntaxError';
 import MaxEtags from '../errors/MaxEtags';
 import MissingEtags from '../errors/MissingEtags';
 import NonJsonObject from '../errors/NonJsonObject';
+import UntrustedClientError from '../errors/UntrustedClientError';
 
 interface Translator extends CommonTranslator {
   readonly conflictError: (err: Conflict) => string;
@@ -16,11 +17,12 @@ interface Translator extends CommonTranslator {
   readonly ifMatchError: (err: IfMatch) => string;
   readonly ifNoneMatchError: (err: IfNoneMatch) => string;
   readonly invalidMethodError: (err: InvalidMethod) => string;
+  readonly jsonSyntaxError: (err: JsonSyntaxError) => string;
   readonly maxEtagsError: (err: MaxEtags) => string;
   readonly missingEtagsError: (err: MissingEtags) => string;
   readonly nonJsonObjectError: (err: NonJsonObject) => string;
+  readonly untrustedClientError: (err: UntrustedClientError) => string;
   readonly xapiTypeWarning: (err: TypeWarning) => string;
-  readonly jsonSyntaxError: (err: JsonSyntaxError) => string;
 }
 
 export default Translator;
