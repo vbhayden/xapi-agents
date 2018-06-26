@@ -4,7 +4,6 @@
 /.nyc_output
 /.vscode
 /coverage
-/dist
 /node_modules
 /notes.md
 /npm-debug.log
